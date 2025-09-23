@@ -1,10 +1,9 @@
-
 # Git Rules for SPEC-Driven Development
 
 ## Core Principles
-- **SPEC-aligned commits**: 各コミットは特定のSPECに関連付ける
-- **Atomic commits**: 1つの論理的変更 = 1つのコミット
-- **Context preservation**: 将来のエージェントセッション向けに十分なコンテキストを保存
+- **SPEC-aligned commits**: Each commit is associated with a specific SPEC
+- **Atomic commits**: One logical change = One commit
+- **Context preservation**: Preserve sufficient context for future agent sessions
 
 ## Agent Commit Requirements:
 - **After code modifications**: Commit immediately after implementing features/fixes
@@ -13,10 +12,10 @@
 - **Never skip commits**: Essential for context preservation between sessions
 
 ## File Selection Rules
-- **適切な.gitignoreを作成**
-- **`git add .`を禁止** - 意図的なファイル選択を強制
-- **SPEC単位でのファイル選択** - 同一SPECに関連するファイルのみを含める
-- **複数エージェント対応** - 他のSPECの変更を混入させない
+- **Create appropriate .gitignore**
+- **Prohibit `git add .`** - Force intentional file selection
+- **SPEC-based file selection** - Include only files related to the same SPEC
+- **Multi-agent support** - Prevent mixing changes from other SPECs
 
 ## Commit Format
 ```bash
@@ -30,27 +29,27 @@
 🔒 spec(spec-name): description     # SPEC files update
 ```
 
-**scope = SPEC名** (タイムスタンプ除く)
-例: `feat(user-auth): implement login endpoint`
+**scope = SPEC name** (excluding timestamp)
+Example: `feat(user-auth): implement login endpoint`
 
 ## Branch Strategy
 - **main**: Production-ready code only
-- **develop**: 通常の開発作業 (複数SPECが並行)
-- **feature/SPEC名**: 破壊的変更や実験的実装時のみ
+- **develop**: Regular development work (multiple SPECs in parallel)
+- **feature/SPEC-name**: Only for breaking changes or experimental implementations
 
 ## SPEC-Linked Commit Process
 
-### 通常のコミット
+### Regular Commits
 ```bash
-git add [spec関連ファイルのみ]
+git add [only SPEC-related files]
 git commit -m "✨ feat(user-auth): implement password validation
 
 SPEC: 20240923-1100_implement-user-auth
-Progress: requirements.md, design.md完了
-Next: tasks.mdの実装開始"
+Progress: requirements.md, design.md completed
+Next: Start tasks.md implementation"
 ```
 
-### SPEC完了時のコミット
-1. report.md作成
-2. SPECをclosedに移動  
-3. 完了コミット
+### SPEC Completion Commits
+1. Create report.md
+2. Move SPEC to closed
+3. Completion commit
