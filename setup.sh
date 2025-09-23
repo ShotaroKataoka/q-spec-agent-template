@@ -70,15 +70,15 @@ read -p "Enter your choice (1-5, default: 1): " lang_choice
 case "${lang_choice:-1}" in
     1)
         LANG_NAME="日本語"
-        LANG_INSTRUCTION="エージェントは必ず日本語でレスポンスを行うこと。"
+        LANG_INSTRUCTION="エージェントは**必ず**日本語でレスポンスを行うこと。"
         ;;
     2)
         LANG_NAME="English"
-        LANG_INSTRUCTION="Agent must always respond in English."
+        LANG_INSTRUCTION="Agent **MUST** always respond in English."
         ;;
     3)
         LANG_NAME="中文"
-        LANG_INSTRUCTION="代理必须始终用中文回应。"
+        LANG_INSTRUCTION="代理**必须**始终用中文回应。"
         ;;
     4)
         LANG_NAME="Español"
@@ -90,7 +90,7 @@ case "${lang_choice:-1}" in
         ;;
     *)
         LANG_NAME="日本語"
-        LANG_INSTRUCTION="エージェントは必ず日本語でレスポンスを行うこと。"
+        LANG_INSTRUCTION="エージェントは**必ず**日本語でレスポンスを行うこと。"
         ;;
 esac
 
