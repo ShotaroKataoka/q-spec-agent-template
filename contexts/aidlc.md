@@ -1,23 +1,123 @@
-# Universal Development Standards
-**For AI Coding Agent Development**
+# AI Development Life Cycle (AIDLC)
+**AIエージェント時代の新しい開発ライフサイクル理論**
 
-## Agent Context & Memory Management
+## AIDLC組織構造
 
-### AI Agent Development Reality:
-- **No persistent memory**: Cannot remember previous sessions, requires comprehensive recovery
-- **Exhaustive analysis capability**: Can check entire codebase when properly directed
-- **Pattern consistency**: Excels at following established patterns uniformly
+### 有機的な3層アーキテクチャ
+```
+Cluster (複数Cellの集合体)
+├── Cell A (開発チーム - 有機的協調体)
+│   ├── Unit 1 (担当グループ - 動的編成)
+│   ├── Unit 2 
+│   └── Unit 3
+└── Cell B
+    ├── Unit 4
+    └── Unit 5
+```
 
-### Context Persistence Strategy:
-- **Steering documents**: Single source of truth for all architectural decisions
-- **SPEC documentation**: Complete implementation history and rationale
-- **Detailed commit messages**: Session-to-session memory bridge
-- **Code comments**: Critical decision explanations for future context
+### 各階層の定義
 
+**Repository (開発対象)**:
+- 独立デプロイ可能な機能単位
+- API境界が明確
+- 1-2名で3ヶ月程度で完結
 
-# Framework Modification
-`/path/to/dir/aidlc-agent/contexts/user_preferences.md`
+**Unit (人員最小単位)**:
+- **特定のRepositoryを担当する1-2名**（ローテーションで変化）
+- **単一コミッター制**でコンフリクト完全回避
+- 各時点での開発責任単位
 
-- **"Update CODING_STANDARDS"** → Modify development workflow rules
-- **"Update KIRO_TEMPLATES"** → Modify SPEC creation templates
-- **"Update PROJECT_SETUP"** → Modify language setup instructions
+**Cell (開発チーム - 有機的協調体)**:
+- **3-4名のメンバー**が**2-4個のRepository**を担当
+- **定期的にUnit編成をローテーション**（2日〜1週間）
+- **全員が全Repositoryを理解**できる状態を維持
+- **有機的な協調**: 環境に応じて柔軟に編成変更
+
+**Cluster (プロジェクト全体)**:
+- **複数Cellの集合**で完全なプロダクトを構成
+- Cell間のAPI調整・統合テスト・デプロイ
+
+### Cellの有機的特性
+
+**生物学的メタファー**:
+- **細胞分裂**: Repository分割による成長
+- **細胞内協調**: Unit編成の柔軟な変化  
+- **新陳代謝**: メンバーローテーションによる活性化
+- **適応性**: プロジェクトフェーズに応じた編成変更
+
+**従来組織との違い**:
+- **固定的な組織図** → **動的な協調体**
+- **機械的な分業** → **柔軟な協働**
+- **硬直した役割** → **流動的な責任**
+
+### 動的Unit編成戦略
+
+**基本方針**: Unit編成を変えることで学習効果と冗長性を最大化
+
+**1-2名の戦略的意味**:
+- **1名**: 完全責任・最高効率（経験者・単純作業向け）
+- **2名**: 以下のパターンで構成
+  - **熟練者 + 熟練者**: 複雑・重要な機能開発
+  - **熟練者 + オンボーディングメンバー**: 学習・調査SPEC作成
+  - **熟練者 + 調査担当**: 新技術検証・PoC開発
+- **単一コミッター**: 常に熟練者1名がコミット権限、もう1名はサポート・学習
+
+**編成変更の利点**:
+- **学習効果**: 異なる人との組み合わせで多様な視点・スキル習得
+- **完全冗長性**: 全員が全員と協働経験、特定ペア依存を防ぐ
+- **チーム結束**: Cell内の相互理解向上
+
+### Cell Sync（同期体制）
+
+**Daily Sync (15分)**:
+- 各Repository/Unitの進捗・ブロッカー共有
+- 緊急課題・依存関係の問題報告
+
+**Weekly Planning (1時間)**:
+- 次期Unit編成・ローテーション計画
+- Repository間のAPI変更・統合調整
+- オンボーディング進捗・学習状況確認
+
+**効率化**:
+- 事前の非同期情報共有（Slack/文書）
+- 定型フォーマットによる時間短縮
+- AIエージェントによる進捗レポート自動生成
+
+## New Joinerのオンボーディング
+UnitのNew JoinerやNew Hireは、Unitのサブメンバーとして熟練者とともに開発に参加する。
+調査SPECなどを通して、安全にコードベースの理解をしながら、開発に寄与する。
+
+**オンボーディングを兼ねたUnit: 熟練者 + オンボーディングメンバー (2名)**
+- 熟練者: 単一コミッター・技術判断・最終実装
+- オンボーディング: 調査SPEC作成・コードベース学習・ペア開発
+
+**調査SPEC活用フロー**:
+```
+調査担当 → 調査SPEC作成 → 熟練者がAIエージェントに読み込み → 効率的実装
+```
+
+### 組織的価値
+
+- **学習と生産性の両立**: オンボーディング過程で作成されたSPECが組織資産に。
+- **知識資産の活用**: 調査過程がAIエージェント向けコンテキスト。
+- **自然な責任移譲**: SPEC品質向上とともに権限拡大。
+- **品質保証**: 熟練者による最終チェックで品質維持。学習者は安全な環境で自由な学習が可能。
+
+## メリット・デメリット
+
+### メリット
+- **Unit効率**: コンフリクト完全回避（組織的解決）
+- **Cell有機性**: 環境適応・柔軟な協調体制
+- **Cell冗長性**: 単一障害点解消（誰でも継続開発可能）
+- **Cell品質**: 相互レビュー体制（多様な視点）
+- **Cluster学習**: 全員のスキル向上・知識分散
+- **オンボーディング効率**: 調査SPEC→AIエージェント協調による学習と生産性の両立
+
+### デメリット
+- スイッチングコスト（Repository間のコンテキスト理解時間）
+- Cell運営負荷（動的Unit編成・オンボーディング管理）
+- Repository分割の難しさ（適切な粒度の判断）
+
+---
+**Status**: 理論設計完了・実証実験準備中  
+**Created**: 2025-09-23
