@@ -55,6 +55,56 @@ if [ ! -d "${REPO_PATH}/contexts" ]; then
     exit 1
 fi
 
+# Language selection and user_preference.md generation
+echo
+echo -e "${BLUE}🌐 Language Selection${NC}"
+echo -e "${YELLOW}Select your preferred language:${NC}"
+echo "1) 日本語 (Japanese)"
+echo "2) English"
+echo "3) 中文 (Chinese)"
+echo "4) Español (Spanish)"
+echo "5) Français (French)"
+
+read -p "Enter your choice (1-5, default: 1): " lang_choice
+
+case "${lang_choice:-1}" in
+    1)
+        LANG_NAME="日本語"
+        LANG_INSTRUCTION="エージェントは必ず日本語でレスポンスを行うこと。"
+        ;;
+    2)
+        LANG_NAME="English"
+        LANG_INSTRUCTION="Agent must always respond in English."
+        ;;
+    3)
+        LANG_NAME="中文"
+        LANG_INSTRUCTION="代理必须始终用中文回应。"
+        ;;
+    4)
+        LANG_NAME="Español"
+        LANG_INSTRUCTION="El agente debe responder siempre en español."
+        ;;
+    5)
+        LANG_NAME="Français"
+        LANG_INSTRUCTION="L'agent doit toujours répondre en français."
+        ;;
+    *)
+        LANG_NAME="日本語"
+        LANG_INSTRUCTION="エージェントは必ず日本語でレスポンスを行うこと。"
+        ;;
+esac
+
+echo -e "${GREEN}Selected language: ${LANG_NAME}${NC}"
+
+# Generate user_preference.md
+USER_PREF_PATH="${REPO_PATH}/contexts/user_preference.md"
+cat > "$USER_PREF_PATH" << EOF
+<!-- AIDLCを改善する場合は必ずこのファイルにルールを追加する。他のコンテキストには変更を加えない。 -->
+- ${LANG_INSTRUCTION}
+EOF
+
+echo -e "${GREEN}✅ Generated user_preference.md with ${LANG_NAME} preference${NC}"
+
 # Count available contexts
 CONTEXT_COUNT=$(find "${REPO_PATH}/contexts" -name "*.md" | wc -l)
 

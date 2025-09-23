@@ -24,6 +24,7 @@
     }
   },
   "resources": [
+    "file://{{REPO_PATH}}/contexts/user_preference.md",
     "file://{{REPO_PATH}}/contexts/aidlc.md",
     "file://{{REPO_PATH}}/contexts/SPEC-Q Framework.md",
     "file://{{REPO_PATH}}/contexts/spec_rules.md",
@@ -34,6 +35,12 @@
   ],
   "hooks": {
     "agentSpawn": [
+      {
+        "command": "git status --porcelain -b",
+        "timeout_ms": 5000,
+        "cache_ttl_seconds": 0,
+        "max_output_size": 2048
+      },
       {
         "command": "if [ -d .kiro/steering ]; then echo '=== Project Steering ==='; for file in .kiro/steering/*.md; do if [ -f \"$file\" ]; then echo \"--- $(basename \"$file\") ---\"; cat \"$file\"; echo; fi; done; fi",
         "timeout_ms": 10000,
