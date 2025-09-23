@@ -1,3 +1,5 @@
+<!-- Steering Structure Template -->
+
 # Project Structure
 
 ## Directory Structure

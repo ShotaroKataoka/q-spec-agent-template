@@ -1,3 +1,5 @@
+<!-- SPEC Requirements Template -->
+
 # Requirements: [Feature Name]
 **Related SPECs**: [Spec-name]
 

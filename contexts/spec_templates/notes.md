@@ -1,3 +1,5 @@
+<!-- SPEC Notes Template -->
+
 # Notes: [Feature Name]
 
 ## 記録の書き方

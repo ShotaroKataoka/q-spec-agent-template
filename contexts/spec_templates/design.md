@@ -1,3 +1,5 @@
+<!-- SPEC Design Template -->
+
 # Design: [Feature Name]
 
 ## API Design

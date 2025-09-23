@@ -1,3 +1,5 @@
+<!-- SPEC Report Template -->
+
 # Report: [Feature Name]
 
 ## Executive Summary

@@ -1,3 +1,5 @@
+<!-- SPEC Tasks Template -->
+
 # Tasks: [Feature Name]
 
 ## Implementation Tasks
