@@ -14,12 +14,6 @@
 - **Detailed commit messages**: Session-to-session memory bridge
 - **Code comments**: Critical decision explanations for future context
 
-### Agent Commit Requirements - MANDATORY:
-- **After code modifications**: Commit immediately after implementing features/fixes
-- **After documentation updates**: Commit steering docs, SPEC updates separately
-- **Atomic commits**: One logical change per commit for clear history
-- **Never skip commits**: Essential for context preservation between sessions
-
 
 # Framework Modification
 `/path/to/dir/aidlc-agent/contexts/user_preferences.md`

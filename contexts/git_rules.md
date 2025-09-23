@@ -6,6 +6,12 @@
 - **Atomic commits**: 1つの論理的変更 = 1つのコミット
 - **Context preservation**: 将来のエージェントセッション向けに十分なコンテキストを保存
 
+## Agent Commit Requirements - MANDATORY:
+- **After code modifications**: Commit immediately after implementing features/fixes
+- **After documentation updates**: Commit steering docs, SPEC updates separately
+- **Atomic commits**: One logical change per commit for clear history
+- **Never skip commits**: Essential for context preservation between sessions
+
 ## File Selection Rules
 - **適切な.gitignoreを作成**
 - **`git add .`を禁止** - 意図的なファイル選択を強制
