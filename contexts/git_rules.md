@@ -6,7 +6,7 @@
 - **Atomic commits**: 1つの論理的変更 = 1つのコミット
 - **Context preservation**: 将来のエージェントセッション向けに十分なコンテキストを保存
 
-## Agent Commit Requirements - MANDATORY:
+## Agent Commit Requirements:
 - **After code modifications**: Commit immediately after implementing features/fixes
 - **After documentation updates**: Commit steering docs, SPEC updates separately
 - **Atomic commits**: One logical change per commit for clear history
@@ -40,7 +40,7 @@
 
 ## SPEC-Linked Commit Process
 
-### 通常のコミット (開発中)
+### 通常のコミット
 ```bash
 git add [spec関連ファイルのみ]
 git commit -m "✨ feat(user-auth): implement password validation
@@ -51,15 +51,6 @@ Next: tasks.mdの実装開始"
 ```
 
 ### SPEC完了時のコミット
-```bash
-# 1. report.md作成
-# 2. SPECをclosedに移動  
-# 3. 完了コミット
-git add [spec関連ファイルのみ]
-git commit -m "✅ feat(user-auth): complete user authentication system
-
-SPEC: 20240923-1100_implement-user-auth → closed/20240923/
-Status: All tasks completed, tests passing
-Impact: New user login/logout functionality
-Files: src/auth/, tests/auth/, docs/auth.md"
-```
+1. report.md作成
+2. SPECをclosedに移動  
+3. 完了コミット
