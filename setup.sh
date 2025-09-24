@@ -96,14 +96,24 @@ esac
 
 echo -e "${GREEN}Selected language: ${LANG_NAME}${NC}"
 
+# User name setup
+DEFAULT_USER=$(whoami)
+echo -e "${BLUE}Enter user name for SPEC management (default: ${DEFAULT_USER}):${NC}"
+read -r user_name
+if [ -z "$user_name" ]; then
+    user_name="$DEFAULT_USER"
+fi
+echo -e "${GREEN}User name set to: ${user_name}${NC}"
+
 # Generate user_preference.md
 USER_PREF_PATH="${REPO_PATH}/contexts/user_preference.md"
 cat > "$USER_PREF_PATH" << EOF
 <!-- AIDLCを改善する場合は必ずこのファイルにルールを追加する。他のコンテキストには変更を加えない。 -->
 - ${LANG_INSTRUCTION}
+- User name is "${user_name}". **Use this name for SPEC management**.
 EOF
 
-echo -e "${GREEN}✅ Generated user_preference.md with ${LANG_NAME} preference${NC}"
+echo -e "${GREEN}✅ Generated user_preference.md with ${LANG_NAME} preference and user name${NC}"
 
 # Count available contexts
 CONTEXT_COUNT=$(find "${REPO_PATH}/contexts" -name "*.md" | wc -l)
@@ -114,9 +124,15 @@ echo -e "${GREEN}✅ Agent configuration created successfully!${NC}"
 echo
 echo -e "${BLUE}🔧 Shell Alias Setup${NC}"
 
-# Detect current shell
-CURRENT_SHELL=$(basename "$SHELL")
-echo -e "${YELLOW}Detected shell: ${CURRENT_SHELL}${NC}"
+# Ask if user wants to set up alias
+echo -e "${BLUE}Do you want to set up a shell alias for 'q chat --agent dev-agent'? (Y/n):${NC}"
+read -r setup_alias
+if [[ "$setup_alias" =~ ^[Nn]$ ]]; then
+    echo -e "${YELLOW}⏭️  Skipping alias setup${NC}"
+else
+    # Detect current shell
+    CURRENT_SHELL=$(basename "$SHELL")
+    echo -e "${YELLOW}Detected shell: ${CURRENT_SHELL}${NC}"
 
 # Determine shell config file
 case "$CURRENT_SHELL" in
@@ -173,10 +189,11 @@ if [ -n "$SHELL_CONFIG" ]; then
             echo -e "${YELLOW}⏭️  Skipping alias setup${NC}"
         fi
     fi
-else
-    echo -e "${YELLOW}⚠️  Could not determine shell config file${NC}"
-    echo -e "${BLUE}💡 Manually add this alias to your shell config:${NC}"
-    echo -e "${GREEN}alias your_alias='q chat --agent dev-agent'${NC}"
+    else
+        echo -e "${YELLOW}⚠️  Could not determine shell config file${NC}"
+        echo -e "${BLUE}💡 Manually add this alias to your shell config:${NC}"
+        echo -e "${GREEN}alias your_alias='q chat --agent dev-agent'${NC}"
+    fi
 fi
 
 echo
