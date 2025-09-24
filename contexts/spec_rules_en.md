@@ -47,6 +47,6 @@ Each SPEC directory contains the following files:
 
 ## Completed SPEC
 - Condition: `report.md` creation completed
-- Destination: `.kiro/specs/closed/{SPEC-close-date:YYYYMMDD}/{SPEC-creation-time:YYYYMMDD-HHMM}_{spec-name}/`
+- Destination: `.kiro/specs/closed/{SPEC-close-date:YYYYMMDD}_{user-name}/{SPEC-creation-time:YYYYMMDD-HHMM}_{spec-name}/`
 
 The date in the destination path is the close date.

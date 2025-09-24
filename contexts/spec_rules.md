@@ -47,7 +47,6 @@ spec-nameはSPECの実態を表す詳細な名前をつけることで、検索�
 
 ## 完了SPEC
 - 条件: `report.md` 作成完了
-- 移動先: `.kiro/specs/closed/{SPECクローズ日:YYYYMMDD}/{SPEC作成時点:YYYYMMDD-HHMM}_{spec-name}/`
+- 移動先: `.kiro/specs/closed/{SPECクローズ日:YYYYMMDD}_{ユーザ名}/{SPEC作成時点:YYYYMMDD-HHMM}_{spec-name}/`
 
 移動先の年月日はクローズ日とする。
-
