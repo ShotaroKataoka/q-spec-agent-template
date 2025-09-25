@@ -107,13 +107,30 @@ echo -e "${GREEN}User name set to: ${user_name}${NC}"
 
 # Generate user_preference.md
 USER_PREF_PATH="${REPO_PATH}/contexts/user_preference.md"
-cat > "$USER_PREF_PATH" << EOF
+
+# Check if user_preference.md already exists
+if [ -f "$USER_PREF_PATH" ]; then
+    echo -e "${YELLOW}⚠️  user_preference.md already exists${NC}"
+    echo -e "${BLUE}Do you want to overwrite it? (y/N):${NC}"
+    read -r overwrite_pref
+    if [[ ! "$overwrite_pref" =~ ^[Yy]$ ]]; then
+        echo -e "${YELLOW}⏭️  Keeping existing user_preference.md${NC}"
+    else
+        cat > "$USER_PREF_PATH" << EOF
 <!-- AIDLCを改善する場合は必ずこのファイルにルールを追加する。他のコンテキストには変更を加えない。 -->
 - ${LANG_INSTRUCTION}
 - User name is "${user_name}". **Use this name for SPEC management**.
 EOF
-
-echo -e "${GREEN}✅ Generated user_preference.md with ${LANG_NAME} preference and user name${NC}"
+        echo -e "${GREEN}✅ Generated user_preference.md with ${LANG_NAME} preference and user name${NC}"
+    fi
+else
+    cat > "$USER_PREF_PATH" << EOF
+<!-- AIDLCを改善する場合は必ずこのファイルにルールを追加する。他のコンテキストには変更を加えない。 -->
+- ${LANG_INSTRUCTION}
+- User name is "${user_name}". **Use this name for SPEC management**.
+EOF
+    echo -e "${GREEN}✅ Generated user_preference.md with ${LANG_NAME} preference and user name${NC}"
+fi
 
 # Count available contexts
 CONTEXT_COUNT=$(find "${REPO_PATH}/contexts" -name "*.md" | wc -l)
