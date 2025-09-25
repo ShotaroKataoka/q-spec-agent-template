@@ -4,7 +4,7 @@ SPECとはAIエージェントが作業を行う際に守るべき仕様であ�
 ## コア原則
 - **ALL YOU NEED is SPEC**: 「機能開発」をはじめとして「バグ修正」「調査」「ドキュメンテーション」など、あらゆる作業にSPECを適用する。コーディングエージェントはSPECを利用することで、飛躍的にタスク遂行能力が向上する。
 - **SPEC as an Asset**: SPECは再利用可能な資産である。`notes.md`や`reports.md`を活用することでその真価を発揮する。偶然の発見や問題解決過程を資産として保存することで、同じ問題に遭遇したときに`find`や`grep`によって過去のSPECを再利用することができる。
-- **Question-base SPEC-driven Development**: SPEC-Q Frameworkを用いたユーザヒアリングにより、ユーザの負荷を抑えながら極めて品質の高いSPECを作成する。
+- **Q-SPEC Framework**: Q-SPEC Frameworkを用いたユーザヒアリングにより、ユーザの負荷を抑えながら極めて品質の高いSPECを作成する。
 
 # SPECの作成
 ## SPEC命名規則
@@ -28,7 +28,7 @@ spec-nameはSPECの実態を表す詳細な名前をつけることで、検索�
 
 # SPECの実行
 ## 作成手順
-1. SPEC-Q Frameworkでヒアリング
+1. Q-SPEC Frameworkでヒアリング
 2. requirements.md作成
 3. design.md作成
 4. tasks.md作成（実装チェックリスト）

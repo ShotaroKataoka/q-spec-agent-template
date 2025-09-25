@@ -234,7 +234,7 @@ fi
 echo
 echo -e "${YELLOW}💡 Available AIDLC features:${NC}"
 echo "  • SPEC-driven development workflow"
-echo "  • SPEC-Q Framework for requirements gathering"
+echo "  • Q-SPEC Framework for requirements gathering"
 echo "  • Automatic DRY compliance checking"
 echo "  • Quality gates and cleanup automation"
 echo "  • Git workflow optimization"

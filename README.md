@@ -8,9 +8,10 @@ AIDLCは、AIエージェントの特性を活かした革新的な開発手法�
 
 ### 核となる理論
 
-- **有機的組織構造**: Cell/Unit/Repository による動的な開発体制
-- **SPEC駆動開発**: 全作業をSPECで管理する開発プロセス
-- **SPEC-Q Framework**: AIエージェント向け効率的要求ヒアリング手法
+- **Rotation Cell**: Cluster/Cell/Unit による動的な開発体制
+- **ALL YOU NEED is SPEC (AYNiS)**: 全ての作業をSPEC駆動で管理する
+- **Q-SPEC Framework**: AIエージェント向け効率的推測ヒアリング
+- **SPEC as an Asset**: SPECを知識資産として再利用する
 
 ## 🚀 クイックスタート
 
@@ -42,12 +43,11 @@ q chat --agent dev-agent
 ## 📋 主な機能
 
 ### SPEC駆動開発ワークフロー
-- **要求分析**: SPEC-Q Frameworkによる効率的ヒアリング
+- **要求分析**: Q-SPEC Frameworkによる効率的ヒアリング
 - **設計・実装**: SPECに基づく段階的開発
 - **品質保証**: 自動化された品質ゲートとクリーンアップ
 
 ### 開発支援機能
-- **DRY原則**: 重複コード検出・リファクタリング支援
 - **クリーンアーキテクチャ**: 依存関係の自動検証
 - **Git最適化**: SPEC連動コミット・安全なブランチ操作
 
@@ -66,7 +66,7 @@ aidlc-agent/
 │   └── dev-agent.json.template  # エージェント設定テンプレート
 ├── contexts/                    # AIDLC理論・ルール
 │   ├── aidlc.md                 # AIDLC組織構造理論
-│   ├── SPEC-Q Framework.md     # 要求ヒアリング手法
+│   ├── Q-SPEC Framework.md     # 推測ヒアリング手法
 │   ├── spec_rules.md            # SPEC管理ルール
 │   ├── dry_rules.md             # DRY原則実装
 │   ├── cleanup_rules.md         # コードクリーンアップ
@@ -97,7 +97,7 @@ aidlc-agent/
    ```
    新しい機能を実装したいです
    ```
-   - SPEC-Q Frameworkによる要求ヒアリング
+   - Q-SPEC Frameworkによる要求ヒアリング
    - requirements/design/tasks/notesの自動生成
 
 ### 既存プロジェクトでの作業
@@ -113,30 +113,42 @@ aidlc-agent/
 ## 🎯 AIDLC理論の詳細
 
 ### 有機的組織構造
+**Cluster (プロジェクト組織)**:
+- 複数のCellの集合
+- 開発単位やCellの分割を指揮するPMが存在
+- Cell同士のSyncを定期的に実施
 
-**Cell (開発チーム)**:
-- 3-4名のメンバーが2-4個のRepositoryを担当
-- 定期的なUnit編成ローテーション
-- 全員が全Repositoryを理解
+**Rotation Cell (開発チーム)**:
+- 3~5名程度のメンバーからなる
+- 3つ程度のUnitが、それぞれ1つずつの機能単位(リポジトリ)を担当
+- こまめなCell内Syncと定期的なUnit編成ローテーションにより、全員が全RepositoryのOwnershipを持つ
+- Unit管理、ローテーション期間、リポジトリ分割、Sync調整などの担当リーダーが存在
+- Cellは有機的変化に強い、冗長かつ効率的な組織を目指す
+   - メンバーやUnit、リポジトリの構造的変更が頻繁に発生するが、問題なく継続可能
 
 **Unit (担当グループ)**:
 - 1-2名で特定Repositoryを担当
+- 開発リポジトリローテーションのたびにUnit再編成
 - 単一コミッター制でコンフリクト回避
-- 動的編成による学習効果最大化
+- 2名編成の場合は、1名がコミッターで1名がアシスタントとなる
+   - コミッターは熟練者が担当する
+   - アシスタントは調査SPECやドキュメンテーションなど、コミッターの補助を実施する
+      - New Joinerのオンボーディングとして活用可能
 
 **Repository (開発対象)**:
 - 独立デプロイ可能な機能単位
-- API境界が明確
-- 1-2名で3ヶ月程度で完結
+   - もしくはgit submoduleによるリポジトリ分離
+- 構造的にコンフリクトが発生しないため、
+   - ブランチは`main`, `develop`, `cell`のような簡素な構成で問題ない
+   - linterやformatterのようなコーディングスタイル標準化ツールも導入不要
 
-### SPEC-Q Framework
-
-効率的な要求ヒアリング手法：
-- **S**cope: 範囲確認
-- **P**riority: 優先度確認  
-- **E**xample: 具体例確認
-- **C**onstraint: 制約確認
-- **Q**uality: 品質確認
+### Q-SPEC Framework
+**5つの視点を常時意識する思考習慣**
+- **Q (Question)**: 「全体像・粒度は適切か？」
+- **S (Suggest)**: 「推論提示で導けているか？」  
+- **P (Prioritize & Probe)**: 「重要度判定・深掘りできているか？」
+- **E (Elicit)**: 「具体例・制約を引き出せているか？」
+- **C (Coordinate)**: 「ヒアリングの深さと幅のバランスは取れているか？」
 
 ## 🔧 カスタマイズ
 

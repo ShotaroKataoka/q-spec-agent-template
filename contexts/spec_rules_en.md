@@ -4,7 +4,7 @@ SPEC is the specification that AI agents must follow when performing work.
 ## Core Principles
 - **ALL YOU NEED is SPEC**: Apply SPEC to all work including "feature development", "bug fixes", "research", "documentation", etc. Coding agents dramatically improve their task execution capabilities by utilizing SPECs.
 - **SPEC as an Asset**: SPECs are reusable assets. They demonstrate their true value through utilization of `notes.md` and `reports.md`. By saving accidental discoveries and problem-solving processes as assets, past SPECs can be reused through `find` or `grep` when encountering the same problems.
-- **Question-based SPEC-driven Development**: Create extremely high-quality SPECs while reducing user burden through user interviews using the SPEC-Q Framework.
+- **Question-based SPEC-driven Development**: Create extremely high-quality SPECs while reducing user burden through user interviews using the Q-SPEC Framework.
 
 # SPEC Creation
 ## SPEC Naming Convention
@@ -28,7 +28,7 @@ Each SPEC directory contains the following files:
 
 # SPEC Execution
 ## Creation Process
-1. Interview using SPEC-Q Framework
+1. Interview using Q-SPEC Framework
 2. Create requirements.md
 3. Create design.md
 4. Create tasks.md (implementation checklist)
