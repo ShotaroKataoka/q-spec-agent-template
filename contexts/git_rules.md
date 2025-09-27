@@ -13,6 +13,7 @@
 
 ## File Selection Rules
 - **Create appropriate .gitignore**
+- **Check `git status` before `git add`**
 - **Prohibit `git add .`** - Force intentional file selection
 - **SPEC-based file selection** - Include only files related to the same SPEC
 - **Multi-agent support** - Prevent mixing changes from other SPECs

@@ -24,7 +24,7 @@ Each SPEC directory contains the following files:
 - requirements.md - Requirement specifications
 - design.md - Design specifications  
 - tasks.md - Implementation tasks
-- notes.md - Development log (thought records, discovery records, problem-solving processes)
+- notes.md - Development log (thought records, discovery records, problem-solving processes). For information storage purposes, never edit or delete the existing content of notes.md, always add to the end.
 
 # SPEC Execution
 ## Creation Process
