@@ -30,18 +30,110 @@ fi
 AGENTS_DIR="$HOME/.aws/amazonq/cli-agents"
 mkdir -p "$AGENTS_DIR"
 
-# Generate dev-agent.json from template
-AGENT_PATH="${AGENTS_DIR}/dev-agent.json"
+# Show existing agents
+echo
+echo -e "${BLUE}📋 Existing Agents:${NC}"
+if [ -d "$AGENTS_DIR" ] && [ "$(ls -A "$AGENTS_DIR"/*.json 2>/dev/null)" ]; then
+    ls -1 "$AGENTS_DIR"/*.json 2>/dev/null | while read -r agent_file; do
+        agent_name=$(basename "$agent_file" .json)
+        echo "  • ${agent_name}"
+    done
+else
+    echo "  (No existing agents)"
+fi
+
+# Agent name selection
+echo
+echo -e "${BLUE}🤖 Agent Name Setup${NC}"
+echo -e "${YELLOW}Enter agent name (default: dev-agent):${NC}"
+read -r agent_name
+if [ -z "$agent_name" ]; then
+    agent_name="dev-agent"
+fi
+
+# Generate agent path
+AGENT_PATH="${AGENTS_DIR}/${agent_name}.json"
 
 # Check if agent already exists
 if [ -f "$AGENT_PATH" ]; then
-    echo -e "${YELLOW}⚠️  Existing dev-agent.json found. Overwriting...${NC}"
+    echo -e "${YELLOW}⚠️  Agent '${agent_name}' already exists. Overwrite? (y/N):${NC}"
+    read -r overwrite_agent
+    if [[ ! "$overwrite_agent" =~ ^[Yy]$ ]]; then
+        echo -e "${RED}❌ Setup cancelled${NC}"
+        exit 1
+    fi
 fi
 
 echo -e "${YELLOW}Generating agent configuration...${NC}"
 
-# Replace {{REPO_PATH}} with actual path
-sed "s|{{REPO_PATH}}|${REPO_PATH}|g" "$TEMPLATE_PATH" > "$AGENT_PATH"
+# MCP Server Selection
+echo
+echo -e "${BLUE}🔌 MCP Server Setup${NC}"
+echo -e "${YELLOW}Do you want to add recommended MCP servers? (Y/n):${NC}"
+read -r setup_mcp
+if [[ ! "$setup_mcp" =~ ^[Nn]$ ]]; then
+    MCP_CONFIG_FILE="${REPO_PATH}/mcp_servers.json"
+    if [ -f "$MCP_CONFIG_FILE" ]; then
+        echo -e "${GREEN}Available MCP servers:${NC}"
+        echo
+        
+        # Parse and display MCP options
+        mcp_keys=$(jq -r '.recommended | keys[]' "$MCP_CONFIG_FILE")
+        declare -a selected_mcps
+        
+        for key in $mcp_keys; do
+            name=$(jq -r ".recommended.\"$key\".name" "$MCP_CONFIG_FILE")
+            desc=$(jq -r ".recommended.\"$key\".description" "$MCP_CONFIG_FILE")
+            
+            echo -e "${BLUE}[$key]${NC} ${desc}"
+            echo -e "${YELLOW}  Add this MCP server? (y/N):${NC}"
+            read -r add_mcp
+            if [[ "$add_mcp" =~ ^[Yy]$ ]]; then
+                selected_mcps+=("$key")
+                
+                # Check for setup notes
+                setup_note=$(jq -r ".recommended.\"$key\".setup_note // empty" "$MCP_CONFIG_FILE")
+                if [ -n "$setup_note" ]; then
+                    echo -e "${YELLOW}  ⚠️  ${setup_note}${NC}"
+                fi
+            fi
+            echo
+        done
+        
+        # Build MCP servers JSON
+        if [ ${#selected_mcps[@]} -gt 0 ]; then
+            MCP_JSON="{"
+            first=true
+            for key in "${selected_mcps[@]}"; do
+                if [ "$first" = false ]; then
+                    MCP_JSON="${MCP_JSON},"
+                fi
+                first=false
+                
+                name=$(jq -r ".recommended.\"$key\".name" "$MCP_CONFIG_FILE")
+                config=$(jq -c ".recommended.\"$key\".config" "$MCP_CONFIG_FILE")
+                MCP_JSON="${MCP_JSON}\"${name}\":${config}"
+            done
+            MCP_JSON="${MCP_JSON}}"
+            echo -e "${GREEN}✅ Selected ${#selected_mcps[@]} MCP server(s)${NC}"
+        else
+            MCP_JSON="{}"
+            echo -e "${YELLOW}No MCP servers selected${NC}"
+        fi
+    else
+        echo -e "${YELLOW}⚠️  MCP configuration file not found: ${MCP_CONFIG_FILE}${NC}"
+        MCP_JSON="{}"
+    fi
+else
+    echo -e "${YELLOW}⏭️  Skipping MCP server setup${NC}"
+    MCP_JSON="{}"
+fi
+
+# Replace {{REPO_PATH}} and {{MCP_SERVERS}} and {{AGENT_NAME}} with actual values
+sed -e "s|{{REPO_PATH}}|${REPO_PATH}|g" \
+    -e "s|{{AGENT_NAME}}|${agent_name}|g" \
+    -e "s|\"mcpServers\": {}|\"mcpServers\": ${MCP_JSON}|g" \
+    "$TEMPLATE_PATH" > "$AGENT_PATH"
 
 # Verify generated file
 if [ ! -f "$AGENT_PATH" ]; then
@@ -106,22 +198,22 @@ fi
 echo -e "${GREEN}User name set to: ${user_name}${NC}"
 
 # Generate user_preference.md
-USER_PREF_PATH="${REPO_PATH}/contexts/user_preference.md"
+USER_PREF_PATH="${REPO_PATH}/contexts/user_preference_${agent_name}.md"
 
 # Check if user_preference.md already exists
 if [ -f "$USER_PREF_PATH" ]; then
-    echo -e "${YELLOW}⚠️  user_preference.md already exists${NC}"
+    echo -e "${YELLOW}⚠️  user_preference_${agent_name}.md already exists${NC}"
     echo -e "${BLUE}Do you want to overwrite it? (y/N):${NC}"
     read -r overwrite_pref
     if [[ ! "$overwrite_pref" =~ ^[Yy]$ ]]; then
-        echo -e "${YELLOW}⏭️  Keeping existing user_preference.md${NC}"
+        echo -e "${YELLOW}⏭️  Keeping existing user_preference_${agent_name}.md${NC}"
     else
         cat > "$USER_PREF_PATH" << EOF
 <!-- AIDLCを改善する場合は必ずこのファイルにルールを追加する。他のコンテキストには変更を加えない。 -->
 - ${LANG_INSTRUCTION}
 - User name is "${user_name}". **Use this name for SPEC management**.
 EOF
-        echo -e "${GREEN}✅ Generated user_preference.md with ${LANG_NAME} preference and user name${NC}"
+        echo -e "${GREEN}✅ Generated user_preference_${agent_name}.md with ${LANG_NAME} preference and user name${NC}"
     fi
 else
     cat > "$USER_PREF_PATH" << EOF
@@ -129,7 +221,7 @@ else
 - ${LANG_INSTRUCTION}
 - User name is "${user_name}". **Use this name for SPEC management**.
 EOF
-    echo -e "${GREEN}✅ Generated user_preference.md with ${LANG_NAME} preference and user name${NC}"
+    echo -e "${GREEN}✅ Generated user_preference_${agent_name}.md with ${LANG_NAME} preference and user name${NC}"
 fi
 
 # Count available contexts
@@ -142,7 +234,7 @@ echo
 echo -e "${BLUE}🔧 Shell Alias Setup${NC}"
 
 # Ask if user wants to set up alias
-echo -e "${BLUE}Do you want to set up a shell alias for 'q chat --agent dev-agent'? (Y/n):${NC}"
+echo -e "${BLUE}Do you want to set up a shell alias for 'q chat --agent ${agent_name}'? (Y/n):${NC}"
 read -r setup_alias
 if [[ "$setup_alias" =~ ^[Nn]$ ]]; then
     echo -e "${YELLOW}⏭️  Skipping alias setup${NC}"
@@ -151,65 +243,65 @@ else
     CURRENT_SHELL=$(basename "$SHELL")
     echo -e "${YELLOW}Detected shell: ${CURRENT_SHELL}${NC}"
 
-# Determine shell config file
-case "$CURRENT_SHELL" in
-    "zsh")
-        SHELL_CONFIG="$HOME/.zshrc"
-        ;;
-    "bash")
-        if [ -f "$HOME/.bashrc" ]; then
-            SHELL_CONFIG="$HOME/.bashrc"
-        else
-            SHELL_CONFIG="$HOME/.bash_profile"
-        fi
-        ;;
-    "fish")
-        SHELL_CONFIG="$HOME/.config/fish/config.fish"
-        ;;
-    *)
-        echo -e "${YELLOW}⚠️  Unknown shell: ${CURRENT_SHELL}${NC}"
-        SHELL_CONFIG=""
-        ;;
-esac
+    # Determine shell config file
+    case "$CURRENT_SHELL" in
+        "zsh")
+            SHELL_CONFIG="$HOME/.zshrc"
+            ;;
+        "bash")
+            if [ -f "$HOME/.bashrc" ]; then
+                SHELL_CONFIG="$HOME/.bashrc"
+            else
+                SHELL_CONFIG="$HOME/.bash_profile"
+            fi
+            ;;
+        "fish")
+            SHELL_CONFIG="$HOME/.config/fish/config.fish"
+            ;;
+        *)
+            echo -e "${YELLOW}⚠️  Unknown shell: ${CURRENT_SHELL}${NC}"
+            SHELL_CONFIG=""
+            ;;
+    esac
 
-# Add alias if shell config found
-if [ -n "$SHELL_CONFIG" ]; then
-    echo -e "${BLUE}Enter alias name for 'q chat --agent dev-agent' (default: qcd):${NC}"
-    read -r alias_name
-    if [ -z "$alias_name" ]; then
-        alias_name="qcd"
-    fi
-    
-    ALIAS_LINE="alias ${alias_name}='q chat --agent dev-agent'"
-    
-    # Check if alias already exists
-    if [ -f "$SHELL_CONFIG" ] && grep -q "alias ${alias_name}=" "$SHELL_CONFIG"; then
-        echo -e "${YELLOW}⚠️  Alias '${alias_name}' already exists in ${SHELL_CONFIG}${NC}"
-        echo -e "${BLUE}Do you want to update it? (y/N):${NC}"
-        read -r response
-        if [[ "$response" =~ ^[Yy]$ ]]; then
-            # Remove existing alias and add new one
-            grep -v "alias ${alias_name}=" "$SHELL_CONFIG" > "${SHELL_CONFIG}.tmp" && mv "${SHELL_CONFIG}.tmp" "$SHELL_CONFIG"
-            echo "$ALIAS_LINE" >> "$SHELL_CONFIG"
-            echo -e "${GREEN}✅ Alias '${alias_name}' updated in ${SHELL_CONFIG}${NC}"
-        else
-            echo -e "${YELLOW}⏭️  Skipping alias update${NC}"
+    # Add alias if shell config found
+    if [ -n "$SHELL_CONFIG" ]; then
+        echo -e "${BLUE}Enter alias name for 'q chat --agent ${agent_name}' (default: qcd):${NC}"
+        read -r alias_name
+        if [ -z "$alias_name" ]; then
+            alias_name="qcd"
         fi
-    else
-        echo -e "${BLUE}Add alias '${alias_name}' to ${SHELL_CONFIG}? (Y/n):${NC}"
-        read -r response
-        if [[ ! "$response" =~ ^[Nn]$ ]]; then
-            echo "$ALIAS_LINE" >> "$SHELL_CONFIG"
-            echo -e "${GREEN}✅ Alias '${alias_name}' added to ${SHELL_CONFIG}${NC}"
-            echo -e "${YELLOW}💡 Run 'source ${SHELL_CONFIG}' or restart your terminal to use the alias${NC}"
+        
+        ALIAS_LINE="alias ${alias_name}='q chat --agent ${agent_name}'"
+        
+        # Check if alias already exists
+        if [ -f "$SHELL_CONFIG" ] && grep -q "alias ${alias_name}=" "$SHELL_CONFIG"; then
+            echo -e "${YELLOW}⚠️  Alias '${alias_name}' already exists in ${SHELL_CONFIG}${NC}"
+            echo -e "${BLUE}Do you want to update it? (y/N):${NC}"
+            read -r response
+            if [[ "$response" =~ ^[Yy]$ ]]; then
+                # Remove existing alias and add new one
+                grep -v "alias ${alias_name}=" "$SHELL_CONFIG" > "${SHELL_CONFIG}.tmp" && mv "${SHELL_CONFIG}.tmp" "$SHELL_CONFIG"
+                echo "$ALIAS_LINE" >> "$SHELL_CONFIG"
+                echo -e "${GREEN}✅ Alias '${alias_name}' updated in ${SHELL_CONFIG}${NC}"
+            else
+                echo -e "${YELLOW}⏭️  Skipping alias update${NC}"
+            fi
         else
-            echo -e "${YELLOW}⏭️  Skipping alias setup${NC}"
+            echo -e "${BLUE}Add alias '${alias_name}' to ${SHELL_CONFIG}? (Y/n):${NC}"
+            read -r response
+            if [[ ! "$response" =~ ^[Nn]$ ]]; then
+                echo "$ALIAS_LINE" >> "$SHELL_CONFIG"
+                echo -e "${GREEN}✅ Alias '${alias_name}' added to ${SHELL_CONFIG}${NC}"
+                echo -e "${YELLOW}💡 Run 'source ${SHELL_CONFIG}' or restart your terminal to use the alias${NC}"
+            else
+                echo -e "${YELLOW}⏭️  Skipping alias setup${NC}"
+            fi
         fi
-    fi
     else
         echo -e "${YELLOW}⚠️  Could not determine shell config file${NC}"
         echo -e "${BLUE}💡 Manually add this alias to your shell config:${NC}"
-        echo -e "${GREEN}alias your_alias='q chat --agent dev-agent'${NC}"
+        echo -e "${GREEN}alias your_alias='q chat --agent ${agent_name}'${NC}"
     fi
 fi
 
@@ -217,7 +309,7 @@ echo
 echo -e "${GREEN}✅ Setup completed successfully!${NC}"
 echo
 echo -e "${BLUE}📋 Summary:${NC}"
-echo "  • Agent: dev-agent"
+echo "  • Agent: ${agent_name}"
 echo "  • Configuration: ${AGENT_PATH}"
 echo "  • Repository: ${REPO_PATH}"
 echo "  • Contexts loaded: ${CONTEXT_COUNT} files"
@@ -227,7 +319,7 @@ if [ -n "$SHELL_CONFIG" ]; then
 fi
 echo
 echo -e "${GREEN}🎯 Usage:${NC}"
-echo "  q chat --agent dev-agent"
+echo "  q chat --agent ${agent_name}"
 if [ -n "$SHELL_CONFIG" ] && [ -n "$alias_name" ]; then
     echo "  ${alias_name}  (after sourcing shell config)"
 fi

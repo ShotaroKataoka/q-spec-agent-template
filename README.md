@@ -29,7 +29,9 @@ cd aidlc-agent
 ```
 
 セットアップスクリプトが以下を自動実行します：
+- エージェント名の選択（複数エージェント対応）
 - カスタムエージェント設定の生成
+- 推奨MCPサーバーの選択（オプション）
 - `~/.aws/amazonq/cli-agents/`への配置
 - シェルエイリアスの設定（オプション）
 
@@ -41,6 +43,12 @@ q chat --agent dev-agent
 ```
 
 ## 📋 主な機能
+
+### MCP (Model Context Protocol) 統合
+- **推奨MCPサーバー**: AWS Documentation, Pricing, Diagram等
+- **カスタマイズ可能**: プロジェクトに応じたMCP追加
+- **セットアップ時選択**: 必要なMCPのみ導入可能
+- 詳細: [MCP_SERVERS.md](MCP_SERVERS.md)
 
 ### SPEC駆動開発ワークフロー
 - **要求分析**: Q-SPEC Frameworkによる効率的ヒアリング
@@ -61,7 +69,9 @@ q chat --agent dev-agent
 ```
 aidlc-agent/
 ├── README.md                    # このファイル
+├── MCP_SERVERS.md              # MCP設定ガイド
 ├── setup.sh                     # セットアップスクリプト
+├── mcp_servers.json            # 推奨MCPサーバー設定
 ├── templates/
 │   └── dev-agent.json.template  # エージェント設定テンプレート
 ├── contexts/                    # AIDLC理論・ルール

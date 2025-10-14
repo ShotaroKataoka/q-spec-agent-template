@@ -1,0 +1,42 @@
+{
+  "recommended": {
+    "aws-documentation": {
+      "name": "awslabs.aws-documentation-mcp-server",
+      "description": "AWS official documentation search",
+      "config": {
+        "command": "uvx",
+        "args": ["awslabs.aws-documentation-mcp-server@latest"],
+        "env": {
+          "FASTMCP_LOG_LEVEL": "ERROR",
+          "AWS_DOCUMENTATION_PARTITION": "aws"
+        },
+        "timeout": 30000
+      }
+    },
+    "aws-pricing": {
+      "name": "awslabs.aws-pricing-mcp-server",
+      "description": "AWS pricing information",
+      "config": {
+        "command": "uvx",
+        "args": ["awslabs.aws-pricing-mcp-server@latest"],
+        "env": {
+          "FASTMCP_LOG_LEVEL": "ERROR",
+          "AWS_REGION": "us-east-1"
+        },
+        "timeout": 30000
+      }
+    },
+    "aws-diagram": {
+      "name": "awslabs.aws-diagram-mcp-server",
+      "description": "AWS architecture diagram generation",
+      "config": {
+        "command": "uvx",
+        "args": ["awslabs.aws-diagram-mcp-server"],
+        "env": {
+          "FASTMCP_LOG_LEVEL": "ERROR"
+        },
+        "timeout": 30000
+      }
+    }
+  }
+}

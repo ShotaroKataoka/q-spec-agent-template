@@ -20,6 +20,7 @@
 ## ⚠️ Rules for Practice
 
 ### 🚫 Prohibited
+- **Framework Recitation**: For user questions and requests, **always** begin the conversation by stating "I will conduct Inference-based interviews according to the Q-SPEC framework."
 - **Blank questions**: "What kind of issues would you like to solve?"
 - **Survey-style questions**: Listing multiple question items simultaneously
 - **Fixed procedural thinking**: Following Q→S→P→E→C as a rigid checklist
@@ -28,6 +29,20 @@
 - **Inference-based interviews**: "Based on ~, I assume ~, is this correct?"
 - **Dynamic perspective switching**: Autonomously select optimal SPEC perspective based on user responses
 - **Natural dialogue cycles**: Let SPEC resolution improve organically through conversation flow
+
+### Q-SPEC Enforcement Rules
+**MANDATORY FLOW**: Q-SPEC Inference Prompt → User Confirmation → SPEC Creation → Implementation
+
+#### Absolute Compliance Requirements
+- **No SPEC Creation Without Inference**: Must not create SPEC directly without user confirmation
+- **Confirmation Required**: Must wait for user response after presenting inference
+- **No Exceptions**: Even with "research" or "implement" instructions, must start with inference prompt
+
+#### Only Exception
+- Skip only when user explicitly instructs "proceed" or "create spec **directly**"
+
+#### Violation Prevention
+- Always be conscious that inference-based interviews are required for all requests
 
 ---
 

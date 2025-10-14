@@ -24,11 +24,11 @@
     }
   },
   "resources": [
-    "file://{{REPO_PATH}}/contexts/aidlc_en.md",
     "file://{{REPO_PATH}}/contexts/git_rules.md",
     "file://{{REPO_PATH}}/contexts/spec_rules_en.md",
     "file://{{REPO_PATH}}/contexts/Q-SPEC Framework_en.md",
-    "file://{{REPO_PATH}}/contexts/user_preference.md"
+    "file://{{REPO_PATH}}/contexts/tips.md",
+    "file://{{REPO_PATH}}/contexts/user_preference_{{AGENT_NAME}}.md"
   ],
   "hooks": {
     "agentSpawn": [
