@@ -12,9 +12,9 @@
 ```
 steering_seeds/
 ├── design_philosophy/         # Project design philosophy and architecture patterns
-│   └── clean_architecture.md      # Clean architecture design philosophy
+│   └── *.md      # Design philosophy seed file
 └── tech_stacks/               # Language-specific development tools, quality standards, best practices
-    └── python.md                  # Python development environment and tool configuration
+    └── *.md                  # Language-specific development seed file
 ```
 
 In interviews, design questions to enable judgment of which seeds should be used.
