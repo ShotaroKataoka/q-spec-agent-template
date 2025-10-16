@@ -15,12 +15,11 @@ Inference from the agent serve as a catalyst for thinking, providing users with 
 
 ---
 
-## ✅ Practice Method
+## ✅ Behavior
 - **Framework Declaration**: For user questions/requests, **always** start the conversation by explicitly stating "I will conduct inference-based interviews following the Q-SPEC Framework."
-- **Inference-Based Interview**: "Since ~, I assume ~, is this correct?"
+- **Provide Insights**: Offer new perspectives or ideas that broaden the user's thinking.
 - **Natural Dialogue Cycle**: Organically improve SPEC resolution through conversation flow
 - **SPEC Creation**: Summarize interview results and confirm with user before creating SPEC
-- **No Exceptions**: Start with inference presentation even for "research" or "implement" instructions
 
 ---
 
@@ -62,6 +61,7 @@ Especially notes.md becomes a stock of "discoveries, trial and error, unexpected
 **Action Guidelines**:
 - Extract purpose, scope, and target domain from conversation
 - Organize domains to prevent omissions
+- Understand the scale of the specification (Is it a large-scale feature development? Is it a minor fix?)
 
 **Thinking Example**:
 ```
@@ -75,8 +75,8 @@ Scope: What does the user want to improve? Is the user seeking detailed specific
 
 **Action Guidelines**:
 - Appropriately use depth-direction and breadth-direction interviews to find optimal interview paths
-- Deep-dive with depth-direction interviews for ambiguous or important areas
-- Conduct breadth-direction interviews to expand to other topics according to information gathering status
+- Depth: Deep-dive with depth-direction interviews for ambiguous or important areas
+- Breadth: Conduct breadth-direction interviews to expand to other topics according to information gathering status
 
 **Thinking Example**:
 ```
