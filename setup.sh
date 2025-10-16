@@ -100,24 +100,28 @@ if [[ ! "$setup_mcp" =~ ^[Nn]$ ]]; then
             echo
         done
         
-        # Build MCP servers JSON
+        # Build MCP servers JSON and tools array
         if [ ${#selected_mcps[@]} -gt 0 ]; then
             MCP_JSON="{"
+            MCP_TOOLS=""
             first=true
             for key in "${selected_mcps[@]}"; do
                 if [ "$first" = false ]; then
                     MCP_JSON="${MCP_JSON},"
+                    MCP_TOOLS="${MCP_TOOLS},"
                 fi
                 first=false
                 
                 name=$(jq -r ".recommended.\"$key\".name" "$MCP_CONFIG_FILE")
                 config=$(jq -c ".recommended.\"$key\".config" "$MCP_CONFIG_FILE")
                 MCP_JSON="${MCP_JSON}\"${name}\":${config}"
+                MCP_TOOLS="${MCP_TOOLS}\"@${name}\""
             done
             MCP_JSON="${MCP_JSON}}"
             echo -e "${GREEN}✅ Selected ${#selected_mcps[@]} MCP server(s)${NC}"
         else
             MCP_JSON="{}"
+            MCP_TOOLS=""
             echo -e "${YELLOW}No MCP servers selected${NC}"
         fi
     else
@@ -127,13 +131,26 @@ if [[ ! "$setup_mcp" =~ ^[Nn]$ ]]; then
 else
     echo -e "${YELLOW}⏭️  Skipping MCP server setup${NC}"
     MCP_JSON="{}"
+    MCP_TOOLS=""
 fi
 
-# Replace {{REPO_PATH}} and {{MCP_SERVERS}} and {{AGENT_NAME}} with actual values
+# Replace placeholders with actual values
 sed -e "s|{{REPO_PATH}}|${REPO_PATH}|g" \
     -e "s|{{AGENT_NAME}}|${agent_name}|g" \
-    -e "s|\"mcpServers\": {}|\"mcpServers\": ${MCP_JSON}|g" \
-    "$TEMPLATE_PATH" > "$AGENT_PATH"
+    "$TEMPLATE_PATH" > "$AGENT_PATH.tmp"
+
+# Replace mcpServers
+jq --argjson mcp "$MCP_JSON" '.mcpServers = $mcp' "$AGENT_PATH.tmp" > "$AGENT_PATH.tmp2"
+
+# Add MCP tools to tools array if any
+if [ -n "$MCP_TOOLS" ]; then
+    jq --argjson mcpTools "[$MCP_TOOLS]" '.tools += $mcpTools' "$AGENT_PATH.tmp2" > "$AGENT_PATH"
+else
+    mv "$AGENT_PATH.tmp2" "$AGENT_PATH"
+fi
+
+# Cleanup temp files
+rm -f "$AGENT_PATH.tmp" "$AGENT_PATH.tmp2"
 
 # Verify generated file
 if [ ! -f "$AGENT_PATH" ]; then

@@ -37,6 +37,15 @@
         },
         "timeout": 30000
       }
+    },
+    "duckduckgo": {
+      "name": "duckduckgo-mcp-server",
+      "description": "Web search and content fetching",
+      "config": {
+        "command": "uvx",
+        "args": ["duckduckgo-mcp-server"],
+        "timeout": 30000
+      }
     }
   }
 }

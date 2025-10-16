@@ -13,12 +13,6 @@ Create SPECs in the following directory format:
 Always include the year, month, day, hour, and minute of SPEC creation.
 Use detailed names for spec-name that represent the actual content of the SPEC to improve searchability and facilitate future reuse.
 
-### spec-name Examples
-✅ implement-user-authentication-system
-✅ fix-api-rate-limiting
-❌ auth (ambiguous)
-❌ bug-fix (non-specific)
-
 ## SPEC Structure
 Each SPEC directory contains the following files:
 - requirements.md - Requirement specifications
@@ -35,12 +29,6 @@ Each SPEC directory contains the following files:
 5. Start implementation (record in notes.md)
 6. Sequentially **Check** the checklist in tasks.md
   - [x] **update** the checklist! 
-
-## Completion Conditions
-- [ ] All tasks completed
-- [ ] Tests passed
-- [ ] report.md created
-- [ ] Or user instruction
 
 # SPEC State Management
 ## Active SPEC

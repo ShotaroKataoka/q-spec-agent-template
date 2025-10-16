@@ -13,12 +13,6 @@ SPECは以下の形式でディレクトリを作成する。
 必ずSPEC作成時点の年月日時分を含める。
 spec-nameはSPECの実態を表す詳細な名前をつけることで、検索性を高め、後々の再利用をしやすくする。
 
-### spec-name例
-✅ implement-user-authentication-system
-✅ fix-api-rate-limiting
-❌ auth (曖昧)
-❌ bug-fix (非具体的)
-
 ## SPEC構成
 各SPECディレクトリには以下のファイルを含む：
 - requirements.md - 要求仕様
@@ -34,12 +28,6 @@ spec-nameはSPECの実態を表す詳細な名前をつけることで、検索�
 4. tasks.md作成（実装チェックリスト）
 5. 実装開始（notes.mdに記録）
 6. 逐次tasks.mdのチェックリストをアップデート
-
-## 完了条件
-- [ ] 全タスク完了
-- [ ] テスト通過
-- [ ] report.md作成
-- [ ] もしくはユーザの指示
 
 # SPECの状態管理
 ## アクティブSPEC

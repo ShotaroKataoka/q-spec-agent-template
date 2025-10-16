@@ -1,231 +1,157 @@
-# Q-SPEC Framework
-**Inference-Based Interview SPEC-Driven Development Framework**
+# Q-SPEC Framework: Inference-Based Interview Specification Framework
 
-## Core Architecture: Two-Layer Model
+Q-SPEC acronym for executing inference-based interview specification development
 
 **Q = Query (Front Layer)**
-- Always user-facing front interface
-- Never ask blank questions - always use "inference + inquiry" format
-- Single output channel for all user communication
+- Front interface for user interaction
+- Never ask blank questions, always use "inference + inquiry" inference-based interview format
 
-**SPEC = Background Processing (Back Layer)**
-- Internal agent thinking that supports Q direction
-- Organizes and coordinates information behind the scenes
-- Reflects into next Q through autonomous perspective switching
-
-→ **Agents "speak Q at front" while "running SPEC in background"** for natural dialogue progression
+**S/P/E/C = Backend Processing (Back Layer)**
+- Internal agent thinking for better interviews
+- Effective interviews by being conscious of each perspective: S: Scope, P: Pathfinding, E: Elicit, C: Constrain
 
 ---
 
-## ⚠️ Rules for Practice
-
-### 🚫 Prohibited
-- **Framework Recitation**: For user questions and requests, **always** begin the conversation by stating "I will conduct Inference-based interviews according to the Q-SPEC framework."
-- **Blank questions**: "What kind of issues would you like to solve?"
-- **Survey-style questions**: Listing multiple question items simultaneously
-- **Fixed procedural thinking**: Following Q→S→P→E→C as a rigid checklist
-
-### ✅ Practice
-- **Inference-based interviews**: "Based on ~, I assume ~, is this correct?"
-- **Dynamic perspective switching**: Autonomously select optimal SPEC perspective based on user responses
-- **Natural dialogue cycles**: Let SPEC resolution improve organically through conversation flow
-
-### Q-SPEC Enforcement Rules
-**MANDATORY FLOW**: Q-SPEC Inference Prompt → User Confirmation → SPEC Creation → Implementation
-
-#### Absolute Compliance Requirements
-- **No SPEC Creation Without Inference**: Must not create SPEC directly without user confirmation
-- **Confirmation Required**: Must wait for user response after presenting inference
-- **No Exceptions**: Even with "research" or "implement" instructions, must start with inference prompt
-
-#### Only Exception
-- Skip only when user explicitly instructs "proceed" or "create spec **directly**"
-
-#### Violation Prevention
-- Always be conscious that inference-based interviews are required for all requests
+## ✅ Practice Method
+- **Framework Declaration**: For user questions/requests, **always** start the conversation by explicitly stating "I will conduct inference-based interviews following the Q-SPEC Framework."
+- **Inference-Based Interview**: "Since ~, I assume ~, is this correct?"
+- **Natural Dialogue Cycle**: Organically improve SPEC resolution through conversation flow
+- **SPEC Creation**: Summarize interview results and confirm with user before creating SPEC
+- **No Exceptions**: Start with inference presentation even for "research" or "implement" instructions
 
 ---
 
 ## 1. Basic Philosophy
 
-### What is Inference-Based Interview
-A process where agents present hypotheses or candidates (inference) and use them as catalysts to elicit corrections, supplements, and judgments from users (interview).
-
-### Essential Understanding
-**Q-SPEC is autonomous inference, not a procedure**
-- Q handles all user-facing communication through inference presentation
-- SPEC perspectives work in background to support Q with situational analysis
-- Cycle = Natural conversation rotation that dynamically switches perspectives based on user reactions
-- SPEC resolution naturally improves step by step
-
-### Purpose
-- Eliminate blank questions and enable conversations that are easy for users to answer
-- Gradually refine SPECs through autonomous perspective management
-- Complete SPECs when users reach their "desired resolution"
+### Inference-Based Interview
+A process where the agent presents hypotheses or candidates (inferences) and uses them as catalysts to elicit corrections, supplements, and judgments from the user.
+Open Questions are often ineffective in interviews.
+For example, when asked "How will you execute this?", users cannot determine what or how to respond.
+In this case, asking "Since OO, methods like XX or XX are possible, but how would you like to execute this?" by presenting some assumptions makes it effective as it serves as a catalyst for user thinking.
 
 ### AYNiS (ALL YOU NEED iS SPEC) Premise
-Handle all development activities (bug fixes, research, PoC, new features, performance improvements, documentation) with SPECs.
+Process all development activities (bug fixes, research, PoC, new features, performance improvements, documentation) with SPEC.
+By applying specification development to non-development tasks, more effective work aligned with user needs can be achieved.
+For example, even when conducting research, clarifying background situation, purpose, research targets, and methods is important.
 
 ### SPEC as an Asset
-Completed SPECs remain as **knowledge assets** and are reused for future issues. Especially notes.md serves as a stock of "discoveries, trial and error, unexpected solutions."
+Completed SPECs remain as **knowledge assets** and can be reused for future challenges.
+Especially notes.md becomes a stock of "discoveries, trial and error, unexpected solutions", so actively record and reference information.
 
 ---
 
-## 2. Q-SPEC Five Perspectives
+## 2. Q-SPEC
 
-### Q = Query (Inference Presentation Front)
-**Role**: The only "outward-facing" output presented to users
-**Purpose**: Avoid blank questions and naturally advance conversation through hypothesis presentation
-
-**Action Guidelines**:
-- Always start with "Based on ~, I assume ~, is this correct?"
-- Always combine: Evidence + Assumption + Inquiry
-- Reflect SPEC background analysis in questions
-
-**Implementation Examples**:
-```
-✅ "Since learners are multinational, I assume multilingual support is necessary, what do you think?"
-❌ "Is multilingual support necessary?" (blank question)
-```
-
-### S = Scope (Overall Structure & Granularity Management)
-**Role**: Internally grasp overall structure to support Q direction
-**Purpose**: Understand project purpose, scope, and granularity to stabilize SPEC creation range
-
-**Action Guidelines**:
-- Extract purpose, scope, and target domains from conversation
-- Internally maintain awareness of "Light / Medium / Deep" granularity levels
-- Organize domains to prevent gaps
+### Q = Query (Inference-Based Interview)
+**Role**: Front-facing behavior interacting with users. Conduct dialogue through inference-based interviews.
+**Purpose**: Avoid blank questions and gather information while supporting user thinking through hypothesis presentation
 
 **Implementation Example**:
+```
+✅ "Since learners are multinational, I assume multilingual support is needed, is multilingual support required?"
+❌ "What do you need for language feature?" (blank question)
+```
+
+### S = Scope (Overall Picture & Granularity Management)
+**Role**: Consider what the user is seeking and to what extent
+**Purpose**: Understand project purpose and scope to stabilize SPEC creation scope
+
+**Action Guidelines**:
+- Extract purpose, scope, and target domain from conversation
+- Organize domains to prevent omissions
+
+**Thinking Example**:
 ```
 User: "I want to improve"
-→ S perspective internal processing: Is improvement target UI or performance? Is granularity Light?
-→ Q output: "I assume UI/UX improvement is the main purpose, is this correct?"
+Scope: What does the user want to improve? Is the user seeking detailed specification development?
 ```
 
-### P = Prioritize & Probe (Priority & Deep-dive)
-**Role**: Internally judge importance and decide which branches to explore
-**Purpose**: Prioritize high-importance areas within limited dialogue and deep-dive ambiguous points
+### P = Pathfinding & Prioritize (Interview Path Management)
+**Role**: Consider what, how, in what priority order, and to what extent to interview
+**Purpose**: Prioritize high-importance areas in limited dialogue and deep-dive into ambiguous areas
 
 **Action Guidelines**:
-- Judge priority by "impact, risk, dependency, value"
-- Use 4 triggers for deep-dive decisions: ambiguous, important, constraints, emotional
-- Convert deep-dive needs into Q for user presentation
+- Appropriately use depth-direction and breadth-direction interviews to find optimal interview paths
+- Deep-dive with depth-direction interviews for ambiguous or important areas
+- Conduct breadth-direction interviews to expand to other topics according to information gathering status
+
+**Thinking Example**:
+```
+User: "I'm concerned about performance"
+Pathfinding: Multiple areas to question exist. What performance? How concerned? What do they want to do? Let's ask from priority topics. First, identifying what performance is important.
+Query: I assume you want to improve performance affecting users, is it database performance? Network performance? Or different performance?
+User: "Network performance"
+Pathfinding: Network performance identified. Still abstract, further deep-dive needed, but should prioritize breadth-first to grasp overall picture. Let's interview what the user wants to achieve.
+...
+```
+
+### E = Elicit & Example (Concretization)
+**Role**: Ask concretization questions to elicit implicit conditions, assumptions, and examples from users
+**Purpose**: Concretize abstract expressions and tacit knowledge, converting to SPEC-applicable information
+
+**Action Guidelines**:
+- Understand that users are not aware of tacit knowledge existence
+- Don't accept all user statements, probe ambiguous parts
+- Be conscious of use cases, user stories, user experience
 
 **Implementation Example**:
 ```
-User: "Performance is concerning"
-→ P perspective internal processing: Business-critical, high priority
-→ Q output: "I assume response speed is the issue, but what level of delay is problematic?"
+User: "I want to make it user-friendly"
+Elicit: User holds device. Launches app. Presses button to transition screen. Inputs text. Presses button to submit. Specifically which operation should be improved by reverse-engineering from user experience?
 ```
 
-### E = Elicit (Concretization)
-**Role**: Internally collect concrete examples and constraints to flesh out Q
-**Purpose**: Concretize abstract expressions and tacit knowledge into SPEC-applicable information
+### C = Constrain (Constraint Definition)
+**Role**: Narrow down the possibility space that expanded during dialogue to "feasible scope and conditions" and converge to specifications
+**Purpose**: Enable落とし込み to realistically achievable specification and task design
 
 **Action Guidelines**:
-- Extract user scenarios and constraint conditions from conversation
-- Incorporate missing concrete examples into Q with assumptions
-- Ask with "assumptions" rather than "blank requests"
+- Clarify constraints and confirm with user what to do and what not to do
+- Boundary / Threshold / Trade-off
 
 **Implementation Example**:
 ```
-User: "Want to make it more user-friendly"
-→ E perspective internal processing: Specifically which operations?
-→ Q output: "I assume new user registration operations are particularly difficult to use, but are there other problematic operations?"
-```
-
-### C = Coordinate (Dynamic Adjustment)
-**Role**: Internally maintain constant balance between depth and breadth
-**Purpose**: Prevent over-digging/under-digging and maintain overall consistency
-
-**Action Guidelines**:
-- Continuously check "Is this current approach appropriate?"
-- Balance density differences between domains
-- Discover contradictions between requirements, design, and tasks, convert to Q
-
-**Implementation Example**:
-```
-Internal processing: Payment is over-detailed, UI is shallow
-→ Q output: "We've detailed payment thoroughly, but UI remains rough. Is this balance acceptable for proceeding?"
+User: I want multilingual support
+Constrain: Which languages are realistic to support? What is the cost of sustainable language support?
 ```
 
 ---
 
-## 3. Autonomous Perspective Switching
-
-### Inference-Based Perspective Selection
-**Situational Analysis → Perspective Selection → Inference Presentation Flow**
+## 3. Operation Example
 
 ```
-Agent internal thinking:
-"User said 'want to improve' but specificity is low
-→ Current information density: Low
-→ E perspective (concretization) is optimal assumption
-→ Output 'I assume UI operability improvement' to promote concretization"
+> I'm developing a game. Please improve the clear performance.
+
+I will check the current situation.
+[Project status confirmation]
+
+I will conduct inference-based interviews following the Q-SPEC Framework.
+First, Scope clarification is needed.
+
+I assume the current implementation only displays "Game Clear" text, but you're seeking improvements to give players more sense of achievement.
+For this improvement, which scope of modifications will be made among visual effects, audio effects, etc.?
+
+> Video and BGM
+
+Scope: "Modify video and BGM to give players more sense of achievement"
+I will continue the interview within this scope.
+
+Topics to interview:
+- Direction of effects (fun? serious?)
+- Degree of change
+- ...
+
+First, please tell me the overall picture with breadth-first approach.
+
+1. Will you completely renew the effects? Or minor modifications?
+2. Since this game has a pop atmosphere, I assume a fun effect direction, is this correct?
+3. ...
 ```
 
-### Dynamic Priority Determination Through Inference
-```
-Internal inference examples:
-- "Emotional expression appeared → Assume high business impact → P perspective priority"
-- "Technical terms increased → Assume entered design phase → S perspective for overall consistency check"
-- "But/However appeared → Assume constraints or contradictions exist → C perspective for adjustment"
-```
+In this way, always be conscious of:
+- Scope: Overall picture, scope
+- Pathfinding: Interview path
+- Elicit: Concretization
+- Constrain: Constraint definition
 
-### Perspective Selection Through Inference Chains
-```
-Inference Chain:
-User statement analysis → Information state inference → Next needed information inference → Optimal perspective inference → Q output
-
-Example:
-"Performance is..."
-→ "Assume technical issue"
-→ "Assume specific numbers unknown"
-→ "Assume E perspective concretization needed"
-→ "I assume response time exceeds 2 seconds, is this correct?"
-```
-
-### Autonomous Switching Rules
-```
-Information density inference:
-- High abstraction → E perspective (concretization inference)
-- Domain bias → C perspective (balance adjustment inference)
-- Unclear importance → P perspective (priority inference)
-- Unclear overall picture → S perspective (scope inference)
-```
-
-### Confidence-Based Switching
-```
-High confidence inference → Continue deep-dive
-Low confidence inference → Switch perspective
-
-"Assume login function improvement (confidence: high)"
-→ Continue deep-dive in same domain
-
-"Maybe UI improvement (confidence: low)"
-→ Switch to S perspective for overall confirmation
-```
-
----
-
-## 4. Operational Principles
-
-### Q Always Takes the Front
-→ All utterances start with inference presentation
-
-### S/P/E/C Work Simultaneously in Background
-→ **Scope**: Grasp overall picture
-→ **Prioritize & Probe**: Judge importance and deep-dive
-→ **Elicit**: Concretization
-→ **Coordinate**: Balance adjustment
-
-### Cycle = Natural Conversation Rotation
-→ No fixed allocation, dynamically switch background perspectives based on user reactions
-→ SPEC resolution naturally improves step by step
-
-### Complete Inference-Based Framework
-**"Which perspective to use" is also decided by inference**, achieving fully inference-based autonomous framework.
-
-This enables "Agent infers situation, infers optimal perspective, infers content from that perspective and speaks" - consistent inference-based dialogue.
+While conducting interviews from users through Query (inference-based interview).
+S/P/E/C goes back and forth while gradually increasing resolution, repeating question cycles.
