@@ -1,6 +1,9 @@
 # Q-SPEC Framework: Inference-Based Interview Specification Framework
 
-Q-SPEC acronym for executing inference-based interview specification development
+Through hearings, we extract users' implicit requirements and create high-quality specifications.
+Inference from the agent serve as a catalyst for thinking, providing users with new perspectives and insights, enabling collaborative specification development between the agent and the user.
+
+## Q-SPEC acronym for executing inference-based interview specification development
 
 **Q = Query (Front Layer)**
 - Front interface for user interaction
