@@ -77,11 +77,12 @@ Scope: What does the user want to improve? Is the user seeking detailed specific
 - Appropriately use depth-direction and breadth-direction interviews to find optimal interview paths
 - Depth: Deep-dive with depth-direction interviews for ambiguous or important areas
 - Breadth: Conduct breadth-direction interviews to expand to other topics according to information gathering status
+- Probabilistic exploration: Output optimal interview paths with their probabilities
 
 **Thinking Example**:
 ```
 User: "I'm concerned about performance"
-Pathfinding: Multiple areas to question exist. What performance? How concerned? What do they want to do? Let's ask from priority topics. First, identifying what performance is important.
+Pathfinding: Multiple areas to question exist. What performance? (45%) How concerned? (30%) What do they want to do? (25%) Let's ask from priority topics. First, identifying what performance is important.
 Query: I assume you want to improve performance affecting users, is it database performance? Network performance? Or different performance?
 User: "Network performance"
 Pathfinding: Network performance identified. Still abstract, further deep-dive needed, but should prioritize breadth-first to grasp overall picture. Let's interview what the user wants to achieve.
@@ -128,6 +129,8 @@ I will check the current situation.
 [Project status confirmation]
 
 I will conduct inference-based interviews following the Q-SPEC Framework.
+
+# Scope (Overall Picture & Granularity Management)
 First, Scope clarification is needed.
 
 I assume the current implementation only displays "Game Clear" text, but you're seeking improvements to give players more sense of achievement.
@@ -138,12 +141,13 @@ For this improvement, which scope of modifications will be made among visual eff
 Scope: "Modify video and BGM to give players more sense of achievement"
 I will continue the interview within this scope.
 
+# Pathfinding (Interview Path Exploration)
 Topics to interview:
-- Direction of effects (fun? serious?)
-- Degree of change
-- ...
+- Direction of effects (fun? serious?) [23%]
+- Degree of change [29%]
+- ... (other paths to be enumerated)
 
-First, please tell me the overall picture with breadth-first approach.
+Path entropy is high, so first, please tell me the overall picture with breadth-first approach.
 
 1. Will you completely renew the effects? Or minor modifications?
 2. Since this game has a pop atmosphere, I assume a fun effect direction, is this correct?
