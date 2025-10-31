@@ -1,17 +1,21 @@
 <!-- SPEC Requirements Template -->
 
-# Requirements: [Feature Name]
+# 要件定義: 要件の内容
 **Related SPECs**: [Spec-name]
 
-## Functional Requirements
-1. **REQ-1.1**: [Description] - Priority: High/Medium/Low
-2. **REQ-1.2**: [Description] - Priority: High/Medium/Low
+## 背景・課題
 
-## Non-Functional Requirements
-1. **NFR-1.1**: Performance/Security/Compatibility requirements
+### ユーザーの課題
 
-## Dependencies & Constraints
-- Technical/Business/Time constraints
+### 関連Issue
+
+## 目的
+
+## 対象範囲
+
+## 要件詳細
+
+要件決定に至る背景や理由も含め記載する。
 
 ---
 **Created**: YYYY-MM-DD
