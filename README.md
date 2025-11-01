@@ -13,8 +13,8 @@
 ### 1. リポジトリのクローン
 
 ```bash
-git clone git@github.com:ShotaroKataoka/q-spec-agent-template.git
-cd aidlc-agent
+git clone git@github.com:ShotaroKataoka/q-spec-kit.git
+cd q-spec-kit
 ```
 
 ### 2. セットアップ実行
@@ -55,7 +55,7 @@ q chat --agent dev-agent
 - ファイル書き込み範囲の調整
 - リソース読み込みの変更
 
-`path/to/q-spec-agent-template/contexts/user_preference_*.md`を編集:
+`path/to/q-spec-kit/contexts/user_preference_*.md`を編集:
 - エージェントごとのユーザ用コンテキストです
 - エージェントの振る舞いを調整したい時に自由に編集してください
 
@@ -79,4 +79,4 @@ MIT License
 
 ---
 
-**Happy coding with AIDLC! 🎉**
+**Happy coding with Q-SPEC Kit! 🎉**

@@ -1,4 +1,4 @@
-# Python Tech Stack Rules for AIDLC
+# Python Tech Stack Rules for Q-SPEC Kit
 
 ## Core Principle
 **動作する、重複しない、迷わない** - AIエージェント開発の三原則
@@ -34,7 +34,7 @@ PYTHONPATH=. uv run mypy src/ --ignore-missing-imports
 uv run bandit -r src/
 ```
 
-## AIDLC Development Flow
+## Q-SPEC Kit Development Flow
 
 ### Before Implementation
 ```bash
@@ -106,5 +106,5 @@ project/
 ```
 
 ---
-**Created**: 2025-09-24 (AIDLC最適化版)
+**Created**: 2025-09-24 (Q-SPEC Kit最適化版)
 **Target**: AI Agent Development Efficiency

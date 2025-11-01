@@ -1,6 +1,6 @@
 # MCP Servers Configuration
 
-This file documents the recommended MCP (Model Context Protocol) servers for AIDLC agents.
+This file documents the recommended MCP (Model Context Protocol) servers for Q-SPEC Kit agents.
 
 ## Configuration File: mcp_servers.json
 

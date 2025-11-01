@@ -1,6 +1,6 @@
 {
   "name": "{{AGENT_NAME}}",
-  "description": "AIDLC-optimized development agent with SPEC-driven workflow",
+  "description": "Q-SPEC Kit-optimized development agent with SPEC-driven workflow",
   "mcpServers": {},
   "tools": [
     "fs_read",
@@ -43,6 +43,12 @@
         "timeout_ms": 5000,
         "cache_ttl_seconds": 300,
         "max_output_size": 4096
+      },
+      {
+        "command": "if [ ! -d .kiro/steering ]; then echo '=== Available Steering Seeds ==='; ls {{REPO_PATH}}/steering_seeds/design_philosophy/ {{REPO_PATH}}/steering_seeds/tech_stacks/; fi",
+        "timeout_ms": 1000,
+        "cache_ttl_seconds": 300,
+        "max_output_size": 1024
       }
     ]
   }

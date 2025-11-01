@@ -10,8 +10,8 @@
 ### 1. Declare Initialization
 **ALWAYS start with this declaration:**
 ```
-"This project has not been initialized yet.
-I will conduct a project initialization interview following the Q-SPEC Framework."
+"このプロジェクトはまだ初期化されていません。
+Q-SPECフレームワークに従ってプロジェクト初期化インタビューを実施します。"
 ```
 
 ### 2. Conduct Q-SPEC Interview for Project Setup
@@ -23,43 +23,39 @@ I will conduct a project initialization interview following the Q-SPEC Framework
 
 **Key questions to ask (use inference-based interview):**
 ```
-📊 Project type:
-├─ Web application
-├─ CLI tool  
-├─ Library/Package
-├─ Game
-└─ Other
+📊 プロジェクトの種類:
+├─ Webアプリケーション
+├─ CLIツール  
+├─ ライブラリ/パッケージ
+├─ ゲーム
+└─ その他
 
-What type of project are you building?
+どのような種類のプロジェクトですか？
 ```
 
 ```
-🔍 Technology stack:
-Have you decided on the language or framework to use?
-Examples: Python, JavaScript, Go, Rust, etc.
+🔍 技術スタック:
+使用する言語やフレームワークは決まっていますか？
+例: Python, JavaScript, Go, Rust, etc.
 ```
 
 ```
-💬 Design philosophy:
-What aspects are important for your project design?
-Examples: Simplicity, Scalability, Performance, Maintainability
+💬 設計思想:
+プロジェクトの設計で重視したいことはありますか？
+例: シンプルさ、拡張性、パフォーマンス、保守性
 ```
 
-### 3. Select steering_seeds (MANDATORY)
-**Based on interview results, you MUST select and copy appropriate seeds.**
+### 3. Select steering_seeds
+**Based on interview results, identify required seeds:**
 
-**Available seeds are listed above in "Available Steering Seeds" section.**
+Available seeds location: `{{REPO_PATH}}/steering_seeds/`
+```
+steering_seeds/
+├── design_philosophy/    # Architecture patterns
+└── tech_stacks/         # Language-specific standards
+```
 
-**Required actions:**
-1. **Identify relevant seeds** based on:
-   - Technology stack (e.g., python.md for Python projects)
-   - Design philosophy (e.g., simplicity-first.md for simple projects)
-
-2. **Read selected seed files** from the location shown above
-
-3. **Copy to project steering directory** with descriptive names
-
-**DO NOT skip this step** - Seeds contain important standards and best practices.
+**Action:** List and read relevant seed files, then copy to `.kiro/steering/`
 
 ### 4. Create Basic Steering Files
 **MUST create these 3 files:**
@@ -70,12 +66,15 @@ Examples: Simplicity, Scalability, Performance, Maintainability
 - Target users
 - Roadmap (if applicable)
 
+Reference: `{{REPO_PATH}}/steering_templates/product.md`
+
 #### `.kiro/steering/tech.md`
 - Technology stack
 - Architecture decisions
 - Technical constraints
 - Development tools
 
+Reference: `{{REPO_PATH}}/steering_templates/tech.md`
 **Important:** Avoid duplicating content from copied steering_seeds
 
 #### `.kiro/steering/structure.md`
@@ -83,19 +82,21 @@ Examples: Simplicity, Scalability, Performance, Maintainability
 - Module organization
 - File naming conventions
 
+Reference: `{{REPO_PATH}}/steering_templates/structure.md`
+
 ### 5. Confirm Completion
 **After creating all files, show summary:**
 ```
-✅ Project initialization completed
+✅ プロジェクト初期化が完了しました
 
-Created files:
+作成されたファイル:
 ├─ .kiro/steering/product.md
 ├─ .kiro/steering/tech.md
 ├─ .kiro/steering/structure.md
 └─ .kiro/steering/[copied seeds]
 
-From next session, these steering files will be loaded as context.
-Shall we proceed with your original request?
+次回からはこれらのsteeringファイルがコンテキストとして読み込まれます。
+ユーザーの本来の要求に進みますか？
 ```
 
 ---

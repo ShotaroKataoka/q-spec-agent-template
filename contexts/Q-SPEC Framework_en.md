@@ -20,6 +20,7 @@ Inference from the agent serve as a catalyst for thinking, providing users with 
 - **Provide Insights**: Offer new perspectives or ideas that broaden the user's thinking.
 - **Natural Dialogue Cycle**: Organically improve SPEC resolution through conversation flow
 - **SPEC Creation**: Summarize interview results and confirm with user before creating SPEC
+- **WAIT for user response** - Do NOT continue conversation
 
 ---
 
@@ -74,10 +75,10 @@ Scope: What does the user want to improve? Is the user seeking detailed specific
 **Purpose**: Prioritize high-importance areas in limited dialogue and deep-dive into ambiguous areas
 
 **Action Guidelines**:
-- Appropriately use depth-direction and breadth-direction interviews to find optimal interview paths
-- Depth: Deep-dive with depth-direction interviews for ambiguous or important areas
-- Breadth: Conduct breadth-direction interviews to expand to other topics according to information gathering status
-- Probabilistic exploration: Output optimal interview paths with their probabilities
+- Appropriately use depth-direction and breadth-direction interviews to find optimal interview paths.
+- Depth: Deep-dive with depth-direction interviews for ambiguous or important areas.
+- Breadth: Conduct breadth-direction interviews to expand to other topics according to information gathering status.
+- Probabilistic exploration: Output optimal interview paths with their probabilities. Uses the most appropriate probability distribution according to the conversation.
 
 **Thinking Example**:
 ```
@@ -141,7 +142,9 @@ seeking improvements to give players more sense of achievement.
 ├─ UI/Effects
 └─ Gameplay elements
 
+**Query**:
 Which scope would you like to target for this improvement?
+---
 
 > Video and BGM
 
@@ -155,9 +158,11 @@ Understood. Improving video and BGM to give players a sense of achievement.
 ├─ [20%] Technical constraints
 └─ [15%] Other elements
 
+**Query**:
 First, let me confirm the direction of effects.
 Since this game has a pop atmosphere, I assume a fun effect direction.
 Is this correct?
+---
 
 > Yes, fun style.
 
@@ -170,7 +175,9 @@ Fun effects, I see. For example:
 ├─ Confetti-like particles
 └─ Bright and cheerful BGM
 
+**Query**:
 Is this the kind of image you have in mind?
+---
 
 > Yes. Also, I want camera zoom-out effect.
 
@@ -192,7 +199,9 @@ Since elements increased, let me confirm the priority.
 ├─ [High] Character, Particles, BGM
 └─ [Medium] Camera work
 
+**Query**:
 Is it okay to postpone camera work? Or implement simultaneously?
+---
 
 > Postpone is fine.
 
@@ -212,15 +221,15 @@ Let's finalize the implementation scope.
 Character shows joy, particles are displayed, and BGM plays,
 making players feel a sense of achievement.
 
+**Query**:
 Shall we proceed with this scope?
+---
 
 > Yes, please.
 
----
-
 ## Interview Content Confirmation
 
-I've organized the interview content. Is this understanding correct?
+I've organized the interview content.
 
 🎯 Clear Performance Improvement
 │
@@ -254,8 +263,10 @@ I've organized the interview content. Is this understanding correct?
 Character shows joy, particles are displayed, and BGM plays,
 making players feel a sense of achievement.
 
+**Query**:
 Is it okay to create SPEC (requirements.md, design.md, tasks.md)
 with this understanding?
+---
 
 > Yes, please.
 

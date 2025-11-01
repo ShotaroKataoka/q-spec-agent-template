@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# AIDLC Agent Setup Script
+# Q-SPEC Kit Setup Script
 # Sets up dev-agent with dynamic path resolution
 
 set -e
@@ -351,7 +351,7 @@ generate_user_preference() {
     fi
     
     cat > "$user_pref_file" << EOF
-<!-- AIDLCを改善する場合は必ずこのファイルにルールを追加する。他のコンテキストには変更を加えない。 -->
+<!-- Q-SPEC Kitを改善する場合は必ずこのファイルにルールを追加する。他のコンテキストには変更を加えない。 -->
 EOF
 
     if [ "$LANG_CODE" = "ja" ]; then
@@ -566,8 +566,8 @@ show_summary() {
 # ============================================================================
 
 main() {
-    echo -e "${BLUE}🚀 AIDLC Agent Setup${NC}"
-    echo "Setting up dev-agent with AIDLC optimization..."
+    echo -e "${BLUE}🚀 Q-SPEC Kit Setup${NC}"
+    echo "Setting up dev-agent with Q-SPEC Kit..."
     echo
     print_info "Repository path: ${REPO_PATH}"
     
