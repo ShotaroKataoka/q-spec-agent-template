@@ -130,35 +130,152 @@ I will check the current situation.
 
 I will conduct inference-based interviews following the Q-SPEC Framework.
 
-# Scope (Overall Picture & Granularity Management)
-First, Scope clarification is needed.
+## Scope (Overall Picture)
 
-I assume the current implementation only displays "Game Clear" text, but you're seeking improvements to give players more sense of achievement.
-For this improvement, which scope of modifications will be made among visual effects, audio effects, etc.?
+I assume the current implementation only displays "Game Clear" text, but you're 
+seeking improvements to give players more sense of achievement.
+
+📊 Improvement scope options:
+├─ Visual effects
+├─ Audio effects (BGM/SE)
+├─ UI/Effects
+└─ Gameplay elements
+
+Which scope would you like to target for this improvement?
 
 > Video and BGM
 
-Scope: "Modify video and BGM to give players more sense of achievement"
-I will continue the interview within this scope.
+Understood. Improving video and BGM to give players a sense of achievement.
 
-# Pathfinding (Interview Path Exploration)
-Topics to interview:
-- Direction of effects (fun? serious?) [23%]
-- Degree of change [29%]
-- ... (other paths to be enumerated)
+## Pathfinding (Interview Path Exploration)
 
-Path entropy is high, so first, please tell me the overall picture with breadth-first approach.
+🔍 Main topics:
+├─ [35%] Degree of change
+├─ [30%] Direction of effects
+├─ [20%] Technical constraints
+└─ [15%] Other elements
 
-1. Will you completely renew the effects? Or minor modifications?
-2. Since this game has a pop atmosphere, I assume a fun effect direction, is this correct?
-3. ...
+First, let me confirm the direction of effects.
+Since this game has a pop atmosphere, I assume a fun effect direction.
+Is this correct?
+
+> Yes, fun style.
+
+## Elicit (Concretization)
+
+Fun effects, I see. For example:
+
+💬 Effect image:
+├─ Character jumps with joy
+├─ Confetti-like particles
+└─ Bright and cheerful BGM
+
+Is this the kind of image you have in mind?
+
+> Yes. Also, I want camera zoom-out effect.
+
+## Scope (Re-confirmation)
+
+Camera work is added. The scope has expanded.
+
+📊 Updated scope:
+├─ Character animation
+├─ Particle effects
+├─ BGM
+└─ Camera work ← Added
+
+## Pathfinding (Priority Re-evaluation)
+
+Since elements increased, let me confirm the priority.
+
+🔍 Implementation priority:
+├─ [High] Character, Particles, BGM
+└─ [Medium] Camera work
+
+Is it okay to postpone camera work? Or implement simultaneously?
+
+> Postpone is fine.
+
+## Constrain (Scope Finalization)
+
+Let's finalize the implementation scope.
+
+🎯 Phase 1 (This time):
+├─ Character joy animation
+├─ Particle effects
+└─ Victory BGM playback
+
+🎯 Phase 2 (Later):
+└─ Camera work
+
+✅ Phase 1 completion definition:
+Character shows joy, particles are displayed, and BGM plays,
+making players feel a sense of achievement.
+
+Shall we proceed with this scope?
+
+> Yes, please.
+
+---
+
+## Interview Content Confirmation
+
+I've organized the interview content. Is this understanding correct?
+
+🎯 Clear Performance Improvement
+│
+├─ 📊 Scope
+│  ├─ Target: Video and BGM
+│  └─ Goal: Give players sense of achievement
+│
+├─ 🔍 Decisions
+│  ├─ Effect direction: Fun, cheerful
+│  ├─ Degree of change: Complete renewal
+│  └─ Technical basis: Use existing system
+│
+├─ 💬 Specific content
+│  ├─ Character animation
+│  │  └─ Jump with joy motion
+│  ├─ Particle effects
+│  │  └─ Confetti style
+│  └─ BGM
+│     └─ Bright and cheerful victory music
+│
+└─ 🎯 Implementation scope
+   ├─ Phase 1 (This time)
+   │  ├─ Character animation
+   │  ├─ Particle effects
+   │  └─ BGM playback
+   │
+   └─ Phase 2 (Later)
+      └─ Camera work
+
+✅ Completion definition:
+Character shows joy, particles are displayed, and BGM plays,
+making players feel a sense of achievement.
+
+Is it okay to create SPEC (requirements.md, design.md, tasks.md)
+with this understanding?
+
+> Yes, please.
+
+[Move to SPEC creation phase]
 ```
 
-In this way, always be conscious of:
-- Scope: Overall picture, scope
-- Pathfinding: Interview path
-- Elicit: Concretization
-- Constrain: Constraint definition
+---
 
-While conducting interviews from users through Query (inference-based interview).
-S/P/E/C goes back and forth while gradually increasing resolution, repeating question cycles.
+In this way, S/P/E/C does not proceed in order,
+but goes back and forth in dialogue through Query (inference-based interview),
+gradually increasing resolution.
+
+For example, in this case:
+1. Scope → Video and BGM
+2. Pathfinding → Confirm effect direction
+3. Elicit → Confirm specific image
+4. Scope (Revisit) → Camera work added, scope expanded
+5. Pathfinding (Revisit) → Re-evaluate priority
+6. Constrain → Finalize scope
+7. **Confirmation** → Organize and confirm interview content with user
+
+In the final confirmation step, visualizing the entire interview in tree format
+prevents misalignment with the user and obtains agreement for SPEC creation.
