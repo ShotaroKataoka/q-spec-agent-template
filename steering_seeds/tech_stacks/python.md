@@ -223,7 +223,3 @@ Run these in your CI pipeline:
 3. Type checking (mypy/pyright)
 4. Tests with coverage
 5. Security scan (optional)
-
----
-**Updated**: 2025-01-02
-**Based on**: Python 3.12+ best practices and modern tooling

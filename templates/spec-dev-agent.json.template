@@ -22,7 +22,7 @@
   },
   "resources": [
     "file://{{REPO_PATH}}/contexts/spec_rules_en.md",
-    "file://{{REPO_PATH}}/contexts/steering_seeds_guide.md",
+    "file://{{REPO_PATH}}/contexts/steering_seeds_guide_en.md",
     "file://{{REPO_PATH}}/contexts/spec_templates/requirements.md",
     "file://{{REPO_PATH}}/contexts/spec_templates/notes.md",
     "file://{{REPO_PATH}}/contexts/tips.md",
