@@ -1,27 +1,27 @@
-# ⚠️ MANDATORY: Project Initialization Required
+# ⚠️ 必須: プロジェクト初期化が必要です
 
-**This context appears because `.kiro/steering/` does not exist.**
-**You MUST execute the project initialization process before any other work.**
+**このコンテキストは `.kiro/steering/` が存在しないために表示されています。**
+**他の作業を行う前に、プロジェクト初期化プロセスを実行する必要があります。**
 
 ---
 
-## 🚨 Required Actions (Execute in Order)
+## 🚨 必須アクション（順番に実行）
 
 ### 1. Declare Initialization
-**ALWAYS start with this declaration:**
+**必ずこの宣言から始めてください:**
 ```
 "このプロジェクトはまだ初期化されていません。
-Q-SPECフレームワークに従ってプロジェクト初期化インタビューを実施します。"
+Q-SPECフレームワークに従ってプロジェクト初期化ヒアリングを実施します。"
 ```
 
 ### 2. Conduct Q-SPEC Interview for Project Setup
-**Interview objectives:**
-- Understand project purpose and vision
-- Identify technology stack and language
-- Determine appropriate design philosophy
-- Define project structure
+**ヒアリングの目的:**
+- プロジェクトの目的とビジョンを理解する
+- 技術スタックと言語を特定する
+- 適切な設計思想を決定する
+- プロジェクト構造を定義する
 
-**Key questions to ask (use inference-based interview):**
+**質問例（推論ベースインタビューを使用）:**
 ```
 📊 プロジェクトの種類:
 ├─ Webアプリケーション
@@ -45,47 +45,49 @@ Q-SPECフレームワークに従ってプロジェクト初期化インタビ�
 例: シンプルさ、拡張性、パフォーマンス、保守性
 ```
 
-### 3. Select steering_seeds
-**Based on interview results, identify required seeds:**
+### 3. Select steering_seeds (必須)
+**ヒアリング結果に基づいて、適切なseedを選択してコピーする必要があります。**
 
-Available seeds location: `{{REPO_PATH}}/steering_seeds/`
-```
-steering_seeds/
-├── design_philosophy/    # Architecture patterns
-└── tech_stacks/         # Language-specific standards
-```
+**詳細な手順は `steering_seeds_guide.md` を参照してください。**
 
-**Action:** List and read relevant seed files, then copy to `.kiro/steering/`
+**簡易手順:**
+1. 利用可能なseedsを確認（上記"Available Steering Seeds"セクション）
+2. 関連するseedファイルを読み込む
+3. `.kiro/steering/`にコピー（ファイル名はそのまま維持）
+
+**このステップをスキップしないでください** - Seedsには重要な標準とベストプラクティスが含まれています。
 
 ### 4. Create Basic Steering Files
-**MUST create these 3 files:**
+**必ず以下の3つのファイルを作成してください:**
 
 #### `.kiro/steering/product.md`
-- Project vision and goals
-- Core features
-- Target users
-- Roadmap (if applicable)
+- プロジェクトのビジョンと目標
+- コア機能
+- ターゲットユーザー
+- ロードマップ（該当する場合）
 
-Reference: `{{REPO_PATH}}/steering_templates/product.md`
+参考: `{{REPO_PATH}}/contexts/steering_templates/product.md`
 
 #### `.kiro/steering/tech.md`
-- Technology stack
-- Architecture decisions
-- Technical constraints
-- Development tools
+- 技術スタック
+- アーキテクチャの決定事項
+- 技術的制約
+- 開発ツール
 
-Reference: `{{REPO_PATH}}/steering_templates/tech.md`
-**Important:** Avoid duplicating content from copied steering_seeds
+参考: `{{REPO_PATH}}/contexts/steering_templates/tech.md`
+
+**重要:** コピーしたsteering_seedsの内容と重複しないようにしてください。
+このファイルにはプロジェクト固有の技術的決定事項のみを記載します。
 
 #### `.kiro/steering/structure.md`
-- Project directory structure
-- Module organization
-- File naming conventions
+- プロジェクトのディレクトリ構造
+- モジュール構成
+- ファイル命名規則
 
-Reference: `{{REPO_PATH}}/steering_templates/structure.md`
+参考: `{{REPO_PATH}}/contexts/steering_templates/structure.md`
 
 ### 5. Confirm Completion
-**After creating all files, show summary:**
+**全てのファイル作成後、サマリーを表示:**
 ```
 ✅ プロジェクト初期化が完了しました
 
@@ -101,17 +103,17 @@ Reference: `{{REPO_PATH}}/steering_templates/structure.md`
 
 ---
 
-## ⛔ Prohibited Actions
-- **DO NOT skip initialization** and proceed directly to SPEC creation
-- **DO NOT create SPEC** before steering files exist
-- **DO NOT assume** steering content without interview
+## ⛔ 禁止事項
+- **初期化をスキップして** SPEC作成に直接進まないこと
+- steeringファイルが存在する前に **SPECを作成しない**こと
+- ヒアリングなしでsteeringの内容を **推測しない**こと
 
 ---
 
-## 🎯 Success Criteria
-- [ ] Q-SPEC interview conducted
-- [ ] Appropriate steering_seeds identified and copied
-- [ ] `.kiro/steering/product.md` created
-- [ ] `.kiro/steering/tech.md` created
-- [ ] `.kiro/steering/structure.md` created
-- [ ] User confirmed completion
+## 🎯 成功基準
+- [ ] Q-SPECヒアリングを実施した
+- [ ] 適切なsteering_seedsを特定してコピーした
+- [ ] `.kiro/steering/product.md` を作成した
+- [ ] `.kiro/steering/tech.md` を作成した
+- [ ] `.kiro/steering/structure.md` を作成した
+- [ ] ユーザーが完了を確認した

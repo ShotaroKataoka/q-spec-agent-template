@@ -28,6 +28,9 @@
     "file://{{REPO_PATH}}/contexts/spec_rules_en.md",
     "file://{{REPO_PATH}}/contexts/Q-SPEC Framework_en.md",
     "file://{{REPO_PATH}}/contexts/tips.md",
+    "file://{{REPO_PATH}}/contexts/steering_seeds_guide.md",
+    "file://{{REPO_PATH}}/contexts/spec_templates/requirements.md",
+    "file://{{REPO_PATH}}/contexts/spec_templates/notes.md",
     "file://{{REPO_PATH}}/contexts/user_preference_{{AGENT_NAME}}.md"
   ],
   "hooks": {
@@ -45,7 +48,13 @@
         "max_output_size": 4096
       },
       {
-        "command": "if [ ! -d .kiro/steering ]; then echo '=== Available Steering Seeds ==='; ls {{REPO_PATH}}/steering_seeds/design_philosophy/ {{REPO_PATH}}/steering_seeds/tech_stacks/; fi",
+        "command": "if [ ! -d .kiro/steering ]; then echo '=== Steering Templates ==='; for file in {{REPO_PATH}}/contexts/steering_templates/*.md; do echo \"--- $(basename \"$file\") ---\"; cat \"$file\"; echo; done; fi",
+        "timeout_ms": 3000,
+        "cache_ttl_seconds": 300,
+        "max_output_size": 2048
+      },
+      {
+        "command": "echo '=== Available Steering Seeds ==='; ls {{REPO_PATH}}/steering_seeds/design_philosophy/ {{REPO_PATH}}/steering_seeds/tech_stacks/",
         "timeout_ms": 1000,
         "cache_ttl_seconds": 300,
         "max_output_size": 1024

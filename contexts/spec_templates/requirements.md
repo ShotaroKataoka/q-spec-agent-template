@@ -1,21 +1,25 @@
 <!-- SPEC Requirements Template -->
 
-# 要件定義: 要件の内容
+# Requirements: [Requirement Title]
 **Related SPECs**: [Spec-name]
 
-## 背景・課題
+## Background & Context
 
-### ユーザーの課題
+### User Problems
 
-### 関連Issue
+### Related Issues
 
-## 目的
+## Objectives
 
-## 対象範囲
+## Scope
 
-## 要件詳細
+### In Scope
 
-要件決定に至る背景や理由も含め記載する。
+### Out of Scope
+
+## Detailed Requirements
+
+Include the background and rationale that led to the requirement decisions.
 
 ---
 **Created**: YYYY-MM-DD

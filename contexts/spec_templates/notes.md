@@ -2,47 +2,22 @@
 
 # Notes: [Feature Name]
 
-## 記録の書き方
-- **追記専用**: 既存の内容は絶対に編集・削除しない、新しい発見は必ず末尾に追加
-- **自然な文章で**: 同僚に説明するように、普通の日本語で書く
-- **思考の流れそのまま**: 「最初は〜と思ったが、実際は〜だった」
-- **具体的に**: 数値、エラーメッセージ、コマンドなど具体例を含める
-- **感情も記録**: 困った、驚いた、安心した、などの気持ちも大切
-- **体言止めは避ける**: 「〜の実装」ではなく「〜を実装した」
+## How to Write Notes
+- **Append-only**: Never edit or delete existing content, always add new discoveries at the end
+- **Natural language**: Write as if explaining to a colleague, in plain language
+- **Capture thought process**: "Initially thought X, but actually it was Y"
+- **Be specific**: Include numbers, error messages, commands, and concrete examples
+- **Use complete sentences**: "Implemented X" not "X implementation"
 
-## Hearing Log
-### [YYYY-MM-DD HH:MM] OOについて議論
-どのような質問をして、ユーザがどのように答えたか。
-ユーザの反応やニュアンスを記録することで、本質的な課題に気づく可能性が高まる。
+## Log
 
-## Development Log
+### [YYYY-MM-DD HH:MM] Entry Title
+What happened, what was learned, what to do next.
 
-### [YYYY-MM-DD HH:MM] 調査・発見
-何を調べていて、どんなことが分かったか。
-予想と違った点や、驚いた発見があれば詳しく。
-次に何をするか、なぜそう判断したか。
+**Related commit**: `hash` - "commit message" (if applicable)
 
-### [YYYY-MM-DD HH:MM] 実装・問題解決
-何を実装しようとして、どんな問題に遭遇したか。
-どうやって解決したか、他に試した方法はあったか。
-うまくいった時の気持ちや、ハマった時の感情も。
-
-**Related commit**: `hash` - "commit message" (該当する場合)
-
-### [YYYY-MM-DD HH:MM] テスト・パフォーマンス
-何をテストして、結果はどうだったか。
-数値データがあれば具体的に。環境による違いはあったか。
-結果を見た時の直感的な感想も記録。
-
-**Related commit**: `hash` - "commit message" (該当する場合)
-
-### [YYYY-MM-DD HH:MM] 便利コマンド・コード片
-開発中に見つけた便利なコマンドやコード。
-いつ使うかの状況も一緒に。
-
-### [YYYY-MM-DD HH:MM] 気になること・疑問
-確信はないけど重要そうなこと。
-後で調べたいことや、パターンとして気づいたこと。
+### [YYYY-MM-DD HH:MM] Entry Title
+What happened, what was learned, what to do next.
 
 ---
 **Created**: YYYY-MM-DD

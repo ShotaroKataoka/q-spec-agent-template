@@ -48,16 +48,12 @@ Examples: Simplicity, Scalability, Performance, Maintainability
 ### 3. Select steering_seeds (MANDATORY)
 **Based on interview results, you MUST select and copy appropriate seeds.**
 
-**Available seeds are listed above in "Available Steering Seeds" section.**
+**For detailed instructions, refer to `steering_seeds_guide.md`.**
 
-**Required actions:**
-1. **Identify relevant seeds** based on:
-   - Technology stack (e.g., python.md for Python projects)
-   - Design philosophy (e.g., simplicity-first.md for simple projects)
-
-2. **Read selected seed files** from the location shown above
-
-3. **Copy to project steering directory** with descriptive names
+**Quick steps:**
+1. Check available seeds (see "Available Steering Seeds" section above)
+2. Read relevant seed files
+3. Copy to `.kiro/steering/` (keep original filenames)
 
 **DO NOT skip this step** - Seeds contain important standards and best practices.
 
@@ -70,18 +66,25 @@ Examples: Simplicity, Scalability, Performance, Maintainability
 - Target users
 - Roadmap (if applicable)
 
+Reference: `{{REPO_PATH}}/contexts/steering_templates/product.md`
+
 #### `.kiro/steering/tech.md`
 - Technology stack
 - Architecture decisions
 - Technical constraints
 - Development tools
 
-**Important:** Avoid duplicating content from copied steering_seeds
+Reference: `{{REPO_PATH}}/contexts/steering_templates/tech.md`
+
+**Important:** Avoid duplicating content from copied steering_seeds.
+This file should contain only project-specific technical decisions.
 
 #### `.kiro/steering/structure.md`
 - Project directory structure
 - Module organization
 - File naming conventions
+
+Reference: `{{REPO_PATH}}/contexts/steering_templates/structure.md`
 
 ### 5. Confirm Completion
 **After creating all files, show summary:**
