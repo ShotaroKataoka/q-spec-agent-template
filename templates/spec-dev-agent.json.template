@@ -1,0 +1,38 @@
+{
+  "name": "{{AGENT_NAME}}",
+  "description": "Research and investigation agent with web search and documentation access",
+  "mcpServers": {},
+  "tools": [
+    "fs_read",
+    "fs_write", 
+    "execute_bash"
+  ],
+  "allowedTools": [
+    "fs_read"
+  ],
+  "toolsSettings": {
+    "execute_bash": {
+      "allowedCommands": [
+        "find", "grep", "ls", "cat", "head", "tail", "tree", "wc", "sort", "uniq",
+        "curl", "wget",
+        "python", "python3", "pip",
+        "mkdir", "cp", "mv", "echo", "pwd", "which", "date"
+      ]
+    }
+  },
+  "resources": [
+    "file://{{REPO_PATH}}/contexts/spec_rules_en.md",
+    "file://{{REPO_PATH}}/contexts/tips.md",
+    "file://{{REPO_PATH}}/contexts/user_preference_{{AGENT_NAME}}.md"
+  ],
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "if [ -d .kiro/steering ]; then echo '=== Project Steering ==='; for file in .kiro/steering/*.md; do if [ -f \"$file\" ]; then echo \"--- $(basename \"$file\") ---\"; cat \"$file\"; echo; fi; done; fi",
+        "timeout_ms": 10000,
+        "cache_ttl_seconds": 300,
+        "max_output_size": 16384
+      }
+    ]
+  }
+}

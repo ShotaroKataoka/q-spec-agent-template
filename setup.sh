@@ -20,7 +20,7 @@ NC='\033[0m' # No Color
 # Get absolute path of current directory
 REPO_PATH=$(pwd)
 AGENTS_DIR="$HOME/.aws/amazonq/cli-agents"
-TEMPLATE_PATH="${REPO_PATH}/templates/dev-agent.json.template"
+TEMPLATE_PATH=""  # Will be set by select_template()
 
 # ============================================================================
 # Utility Functions
@@ -94,12 +94,19 @@ prompt_input() {
 check_prerequisites() {
     print_header "🔍 Checking Prerequisites"
     
-    # Check if template exists
-    if [ ! -f "$TEMPLATE_PATH" ]; then
-        print_error "Template not found: $TEMPLATE_PATH"
+    # Check if templates directory exists
+    if [ ! -d "${REPO_PATH}/templates" ]; then
+        print_error "Templates directory not found: ${REPO_PATH}/templates"
         exit 1
     fi
-    print_success "Template found"
+    
+    # Check if any templates exist
+    local template_count=$(find "${REPO_PATH}/templates" -name "*.json.template" | wc -l | tr -d ' ')
+    if [ "$template_count" -eq 0 ]; then
+        print_error "No templates found in ${REPO_PATH}/templates"
+        exit 1
+    fi
+    print_success "Found ${template_count} template(s)"
     
     # Check if jq is installed
     if ! command -v jq &> /dev/null; then
@@ -111,6 +118,48 @@ check_prerequisites() {
     # Create agents directory
     mkdir -p "$AGENTS_DIR"
     print_success "Agents directory ready"
+}
+
+select_template() {
+    print_header "📋 Template Selection"
+    
+    # Find all templates
+    local templates=()
+    while IFS= read -r template_path; do
+        templates+=("$template_path")
+    done < <(find "${REPO_PATH}/templates" -name "*.json.template" | sort)
+    
+    if [ ${#templates[@]} -eq 1 ]; then
+        TEMPLATE_PATH="${templates[0]}"
+        local template_name=$(basename "$TEMPLATE_PATH" .json.template)
+        print_info "Using template: ${template_name}"
+        return
+    fi
+    
+    echo "Available templates:"
+    echo
+    local i=1
+    for template_path in "${templates[@]}"; do
+        local template_name=$(basename "$template_path" .json.template)
+        # Convert kebab-case to Title Case for display
+        local display_name=$(echo "$template_name" | sed 's/-/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2));}1')
+        echo "  ${i}) ${display_name}"
+        ((i++))
+    done
+    echo
+    
+    local choice=$(prompt_input "Select template (1-${#templates[@]})" "1")
+    echo  # Add newline after input
+    
+    # Validate choice
+    if ! [[ "$choice" =~ ^[0-9]+$ ]] || [ "$choice" -lt 1 ] || [ "$choice" -gt ${#templates[@]} ]; then
+        print_warning "Invalid choice. Using first template."
+        choice=1
+    fi
+    
+    TEMPLATE_PATH="${templates[$((choice-1))]}"
+    local template_name=$(basename "$TEMPLATE_PATH" .json.template)
+    print_success "Selected template: ${template_name}"
 }
 
 show_existing_agents() {
@@ -523,6 +572,7 @@ main() {
     print_info "Repository path: ${REPO_PATH}"
     
     check_prerequisites
+    select_template
     show_existing_agents
     setup_agent_name
     setup_mcp_servers
