@@ -462,3 +462,6 @@ def test_order_persistence(db):
 4. **Model aggregates carefully** - Enforce invariants and consistency
 5. **Use domain events** - Decouple contexts and enable eventual consistency
 6. **Collaborate with experts** - Continuous learning about the domain
+
+---
+**Last Updated**: 2025-11-02

@@ -295,3 +295,6 @@ Start simple. Add complexity only when needed. Not every project needs full Clea
 4. **Business rules are independent** of technical details
 5. **Test business logic in isolation** without external dependencies
 6. **Use interfaces** to define boundaries between layers
+
+---
+**Last Updated**: 2025-11-02

@@ -431,3 +431,6 @@ def process_order(order_data: dict) -> dict:
 4. **Refactor when you feel pain** - Not before
 5. **Test behavior, not implementation** - Focus on what matters
 6. **Flat is better than nested** - Keep structure simple
+
+---
+**Last Updated**: 2025-11-02

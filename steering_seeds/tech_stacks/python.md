@@ -223,3 +223,6 @@ Run these in your CI pipeline:
 3. Type checking (mypy/pyright)
 4. Tests with coverage
 5. Security scan (optional)
+
+---
+**Last Updated**: 2025-11-02

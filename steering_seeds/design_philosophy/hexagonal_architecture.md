@@ -318,3 +318,6 @@ def test_postgres_repository(test_db):
 3. **Adapters are replaceable** - Swap implementations without changing core
 4. **Dependency points inward** - External depends on core, not vice versa
 5. **Test core in isolation** - Business logic tested without infrastructure
+
+---
+**Last Updated**: 2025-11-02

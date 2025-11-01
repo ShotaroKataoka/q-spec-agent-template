@@ -538,3 +538,6 @@ const user = new UserBuilder()
 5. **Prefer interfaces for objects** - Types for unions/intersections
 6. **Keep types close to usage** - Co-locate types with code
 7. **Test with types** - Ensure type safety in tests
+
+---
+**Last Updated**: 2025-11-02
