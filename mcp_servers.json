@@ -11,7 +11,12 @@
           "AWS_DOCUMENTATION_PARTITION": "aws"
         },
         "timeout": 30000
-      }
+      },
+      "recommended_allowed_tools": [
+        "@awslabs.aws-documentation-mcp-server/search_documentation",
+        "@awslabs.aws-documentation-mcp-server/read_documentation",
+        "@awslabs.aws-documentation-mcp-server/recommend"
+      ]
     },
     "aws-pricing": {
       "name": "awslabs.aws-pricing-mcp-server",
@@ -24,7 +29,13 @@
           "AWS_REGION": "us-east-1"
         },
         "timeout": 30000
-      }
+      },
+      "recommended_allowed_tools": [
+        "@awslabs.aws-pricing-mcp-server/get_pricing",
+        "@awslabs.aws-pricing-mcp-server/get_pricing_service_codes",
+        "@awslabs.aws-pricing-mcp-server/generate_cost_report",
+        "@awslabs.aws-pricing-mcp-server/get_bedrock_patterns"
+      ]
     },
     "aws-diagram": {
       "name": "awslabs.aws-diagram-mcp-server",
@@ -36,7 +47,12 @@
           "FASTMCP_LOG_LEVEL": "ERROR"
         },
         "timeout": 30000
-      }
+      },
+      "recommended_allowed_tools": [
+        "@awslabs.aws-diagram-mcp-server/generate_diagram",
+        "@awslabs.aws-diagram-mcp-server/list_icons",
+        "@awslabs.aws-diagram-mcp-server/get_diagram_examples"
+      ]
     },
     "duckduckgo": {
       "name": "duckduckgo-mcp-server",
@@ -45,7 +61,11 @@
         "command": "uvx",
         "args": ["duckduckgo-mcp-server"],
         "timeout": 30000
-      }
+      },
+      "recommended_allowed_tools": [
+        "@duckduckgo-mcp-server/search",
+        "@duckduckgo-mcp-server/fetch_content"
+      ]
     }
   }
 }

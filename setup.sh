@@ -100,11 +100,13 @@ if [[ ! "$setup_mcp" =~ ^[Nn]$ ]]; then
             echo
         done
         
-        # Build MCP servers JSON and tools array
+        # Build MCP servers JSON, tools array, and allowed tools
         if [ ${#selected_mcps[@]} -gt 0 ]; then
             MCP_JSON="{"
             MCP_TOOLS=""
+            MCP_ALLOWED_TOOLS=""
             first=true
+            first_allowed=true
             for key in "${selected_mcps[@]}"; do
                 if [ "$first" = false ]; then
                     MCP_JSON="${MCP_JSON},"
@@ -116,22 +118,35 @@ if [[ ! "$setup_mcp" =~ ^[Nn]$ ]]; then
                 config=$(jq -c ".recommended.\"$key\".config" "$MCP_CONFIG_FILE")
                 MCP_JSON="${MCP_JSON}\"${name}\":${config}"
                 MCP_TOOLS="${MCP_TOOLS}\"@${name}\""
+                
+                # Collect recommended allowed tools
+                allowed_tools=$(jq -r ".recommended.\"$key\".recommended_allowed_tools // [] | .[]" "$MCP_CONFIG_FILE")
+                for tool in $allowed_tools; do
+                    if [ "$first_allowed" = false ]; then
+                        MCP_ALLOWED_TOOLS="${MCP_ALLOWED_TOOLS},"
+                    fi
+                    first_allowed=false
+                    MCP_ALLOWED_TOOLS="${MCP_ALLOWED_TOOLS}\"${tool}\""
+                done
             done
             MCP_JSON="${MCP_JSON}}"
             echo -e "${GREEN}✅ Selected ${#selected_mcps[@]} MCP server(s)${NC}"
         else
             MCP_JSON="{}"
             MCP_TOOLS=""
+            MCP_ALLOWED_TOOLS=""
             echo -e "${YELLOW}No MCP servers selected${NC}"
         fi
     else
         echo -e "${YELLOW}⚠️  MCP configuration file not found: ${MCP_CONFIG_FILE}${NC}"
         MCP_JSON="{}"
+        MCP_ALLOWED_TOOLS=""
     fi
 else
     echo -e "${YELLOW}⏭️  Skipping MCP server setup${NC}"
     MCP_JSON="{}"
     MCP_TOOLS=""
+    MCP_ALLOWED_TOOLS=""
 fi
 
 # Replace placeholders with actual values
@@ -144,13 +159,20 @@ jq --argjson mcp "$MCP_JSON" '.mcpServers = $mcp' "$AGENT_PATH.tmp" > "$AGENT_PA
 
 # Add MCP tools to tools array if any
 if [ -n "$MCP_TOOLS" ]; then
-    jq --argjson mcpTools "[$MCP_TOOLS]" '.tools += $mcpTools' "$AGENT_PATH.tmp2" > "$AGENT_PATH"
+    jq --argjson mcpTools "[$MCP_TOOLS]" '.tools += $mcpTools' "$AGENT_PATH.tmp2" > "$AGENT_PATH.tmp3"
 else
-    mv "$AGENT_PATH.tmp2" "$AGENT_PATH"
+    mv "$AGENT_PATH.tmp2" "$AGENT_PATH.tmp3"
+fi
+
+# Add MCP allowed tools to allowedTools array if any
+if [ -n "$MCP_ALLOWED_TOOLS" ]; then
+    jq --argjson allowedTools "[$MCP_ALLOWED_TOOLS]" '.allowedTools += $allowedTools' "$AGENT_PATH.tmp3" > "$AGENT_PATH"
+else
+    mv "$AGENT_PATH.tmp3" "$AGENT_PATH"
 fi
 
 # Cleanup temp files
-rm -f "$AGENT_PATH.tmp" "$AGENT_PATH.tmp2"
+rm -f "$AGENT_PATH.tmp" "$AGENT_PATH.tmp2" "$AGENT_PATH.tmp3"
 
 # Verify generated file
 if [ ! -f "$AGENT_PATH" ]; then
