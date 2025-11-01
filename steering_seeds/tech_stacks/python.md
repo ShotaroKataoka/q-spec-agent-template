@@ -1,110 +1,229 @@
-# Python Tech Stack Rules for Q-SPEC Kit
+# Python Development Standards
 
-## Core Principle
-**動作する、重複しない、迷わない** - AIエージェント開発の三原則
+## Python Version
+- Use **Python 3.12+** for new projects
+- Avoid Python 2 (no longer supported)
+- Don't use OS-bundled Python installations
 
-## Essential Quality Gates
+## Package Management
 
-### 1. 機能確認（最重要）
-```bash
-uv run pytest tests/ -v --tb=short
+### Modern Tools (Choose One)
+- **uv** - Fast, Rust-based (recommended for new projects)
+- **Poetry** - Most popular, well-established
+- **PDM** - Modern, follows latest standards
+- **Hatch** - Integrated build and test features
+
+### Project Configuration
+Use `pyproject.toml` for all project metadata and dependencies:
+```toml
+[project]
+name = "your-project"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx",
+    "pydantic>=2.0"
+]
+
+[tool.pytest.ini_options]
+addopts = "-v"
 ```
 
-### 2. 不要コード検出（エージェント効率）
+## Code Quality
+
+### Formatting & Linting
+Use **Ruff** for both formatting and linting (replaces Black + flake8):
 ```bash
-uv run vulture src/ --min-confidence 80
-uv run autoflake --check --remove-unused-variables --remove-all-unused-imports --recursive src/
+# Format code
+ruff format .
+
+# Lint code
+ruff check .
+
+# Fix auto-fixable issues
+ruff check --fix .
 ```
 
-### 3. 重複検出（DRY確認）
-```bash
-grep -r "def " src/ | sort | uniq -d
-grep -r "class " src/ | sort | uniq -d
+### Type Checking
+Use type hints with **mypy** or **pyright**:
+```python
+def greet(name: str) -> str:
+    return f"Hello, {name}"
 ```
 
-## Optional Quality Checks
-
-### 型安全性（問題発生時のみ）
+Check types:
 ```bash
-PYTHONPATH=. uv run mypy src/ --ignore-missing-imports
+mypy src/
+# or
+pyright src/
 ```
 
-### セキュリティ（リリース前のみ）
+## Testing
+
+### Framework
+Use **pytest** as the standard testing framework:
 ```bash
-uv run bandit -r src/
+pytest tests/ -v
 ```
 
-## Q-SPEC Kit Development Flow
-
-### Before Implementation
-```bash
-# 既存コード検索（重複回避）
-grep -r "target_function" src/
-find . -name "*.py" -exec grep -l "similar_functionality" {} \;
-```
-
-### During Implementation
-```bash
-# 機能テスト（変更後即実行）
-uv run pytest tests/unit/target_module/ -v
-```
-
-### After Implementation
-```bash
-# 不要コード削除（エージェント判断付き）
-uv run vulture src/ --min-confidence 80
-
-# 動作確認
-uv run pytest tests/ -x
-```
-
-## AI Agent Specific Rules
-
-### Context Preservation
-- **明確な命名**：エージェントが理解しやすい関数・変数名
-- **適切なコメント**：実装意図の記録（なぜそうしたか）
-- **型ヒント**：エージェントの理解支援
-
-### Efficiency Optimization
-- **不要コード即削除**：混乱の原因を排除
-- **重複実装回避**：実装前の既存コード確認必須
-- **最小限実装**：必要最小限のコードのみ
-
-### Error Prevention
-- **段階的テスト**：小さな変更ごとにテスト実行
-- **明確なエラーメッセージ**：デバッグ効率向上
-- **依存関係最小化**：複雑性回避
-
-## Prohibited Actions
-- **コードスタイル修正**（black, isort, flake8）→ 開発効率を下げる
-- **全ファイル一括処理**→ 必要な変更のみ実行
-- **動作するコードの変更**→ 機能優先
-
-## Modern Python with uv
-
-### Essential Commands
-```bash
-# 依存関係管理
-uv add package_name
-uv sync
-
-# テスト実行
-uv run pytest tests/ -v
-
-# 不要コード検出
-uv run vulture src/ --min-confidence 80
-```
-
-### Project Structure
+### Test Structure
 ```
 project/
-├── pyproject.toml
 ├── src/
+│   └── mypackage/
 └── tests/
     ├── unit/
     └── integration/
 ```
 
+### Coverage
+```bash
+pytest --cov=src tests/
+```
+
+## Project Structure
+
+### Recommended Layout (src/ layout)
+```
+project/
+├── pyproject.toml
+├── README.md
+├── src/
+│   └── mypackage/
+│       ├── __init__.py
+│       └── core.py
+└── tests/
+    └── test_core.py
+```
+
+### Benefits of src/ Layout
+- Prevents accidental imports from development directory
+- Ensures tests run against installed package
+- Industry standard for Python packages
+
+## Coding Standards
+
+### PEP 8 Naming Conventions
+- **Functions/variables**: `snake_case`
+- **Classes**: `PascalCase`
+- **Constants**: `UPPER_SNAKE_CASE`
+- **Private**: `_leading_underscore`
+
+### Import Organization
+```python
+# Standard library
+import os
+import sys
+
+# Third-party
+import httpx
+import pydantic
+
+# Local
+from .core import MyClass
+```
+
+### Docstrings
+Use docstrings for public APIs:
+```python
+def calculate(x: int, y: int) -> int:
+    """Calculate the sum of two numbers.
+    
+    Args:
+        x: First number
+        y: Second number
+        
+    Returns:
+        Sum of x and y
+    """
+    return x + y
+```
+
+## Async Programming
+
+### Modern Async Patterns
+Use **asyncio.TaskGroup** for structured concurrency:
+```python
+import asyncio
+
+async def main():
+    async with asyncio.TaskGroup() as tg:
+        task1 = tg.create_task(fetch_data())
+        task2 = tg.create_task(process_data())
+    # Both tasks complete here
+```
+
+### HTTP Clients
+Use **httpx** for async HTTP:
+```python
+import httpx
+
+async def fetch(url: str) -> dict:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()
+        return response.json()
+```
+
+## Best Practices
+
+### General Principles
+- **Explicit is better than implicit** (Zen of Python)
+- Keep functions small and focused
+- Use context managers for resource management
+- Avoid global state
+- Write self-documenting code with clear names
+
+### Error Handling
+```python
+# Good: Specific exceptions
+try:
+    result = risky_operation()
+except ValueError as e:
+    logger.error(f"Invalid value: {e}")
+    raise
+
+# Avoid: Bare except
+try:
+    result = risky_operation()
+except:  # Don't do this
+    pass
+```
+
+### Resource Management
+Always use context managers:
+```python
+# Good
+with open("file.txt") as f:
+    data = f.read()
+
+# Good (async)
+async with httpx.AsyncClient() as client:
+    response = await client.get(url)
+```
+
+## Development Workflow
+
+### Pre-commit Hooks
+Use **pre-commit** to run checks automatically:
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.0
+    hooks:
+      - id: ruff
+      - id: ruff-format
+```
+
+### CI/CD Checks
+Run these in your CI pipeline:
+1. Ruff format check
+2. Ruff lint check
+3. Type checking (mypy/pyright)
+4. Tests with coverage
+5. Security scan (optional)
+
 ---
-**Created**: 2025-09-24 (Q-SPEC Kit最適化版)
-**Target**: AI Agent Development Efficiency
+**Updated**: 2025-01-02
+**Based on**: Python 3.12+ best practices and modern tooling
