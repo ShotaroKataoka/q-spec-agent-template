@@ -1,4 +1,5 @@
 {
+  "default": ["aws-documentation", "duckduckgo"],
   "recommended": {
     "aws-documentation": {
       "name": "awslabs.aws-documentation-mcp-server",

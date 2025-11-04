@@ -198,7 +198,7 @@ setup_agent_name() {
 setup_mcp_servers() {
     print_header "🔌 MCP Server Configuration"
     
-    if ! prompt_yes_no "Add recommended MCP servers?" "Y"; then
+    if ! prompt_yes_no "Add MCP servers?" "Y"; then
         echo  # Add newline after input
         print_info "Skipping MCP server setup"
         MCP_JSON="{}"
@@ -216,31 +216,67 @@ setup_mcp_servers() {
         return
     fi
     
-    print_success "Available MCP servers:"
+    # Get default MCPs
+    local default_mcps=$(jq -r '.default[]' "$MCP_CONFIG_FILE")
+    
+    # Show available MCP servers with letter labels
+    echo "Available MCP servers:"
     echo
     
-    # Parse and display MCP options
-    local mcp_keys=$(jq -r '.recommended | keys[]' "$MCP_CONFIG_FILE")
-    declare -a selected_mcps
+    local mcp_keys=$(jq -r '.recommended | keys[]' "$MCP_CONFIG_FILE" | sort)
+    local letters=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z")
+    declare -a mcp_keys_array
+    local default_letters=""
+    local idx=0
     
     for key in $mcp_keys; do
-        local name=$(jq -r ".recommended.\"$key\".name" "$MCP_CONFIG_FILE")
+        local letter="${letters[$idx]}"
         local desc=$(jq -r ".recommended.\"$key\".description" "$MCP_CONFIG_FILE")
         
-        echo -e "${CYAN}[$key]${NC} ${desc}"
-        if prompt_yes_no "  Add this MCP server?" "N"; then
-            echo  # Add newline after input
-            selected_mcps+=("$key")
-            
-            # Check for setup notes
-            local setup_note=$(jq -r ".recommended.\"$key\".setup_note // empty" "$MCP_CONFIG_FILE")
-            if [ -n "$setup_note" ]; then
-                print_warning "${setup_note}"
+        # Check if this is a default MCP
+        local is_default=""
+        for default_mcp in $default_mcps; do
+            if [ "$key" = "$default_mcp" ]; then
+                is_default=" ${GREEN}✓${NC}"
+                default_letters="${default_letters}${letter}"
+                break
             fi
+        done
+        
+        echo -e "  ${letter}. [${key}] ${desc}${is_default}"
+        mcp_keys_array+=("$key")
+        ((idx++))
+    done
+    echo
+    echo -e "${CYAN}${GREEN}✓${NC} = recommended${NC}"
+    echo
+    
+    echo "Enter letters to select (e.g., 'ab' for a+b), or press Enter for recommended:"
+    local selection=$(prompt_input "Selection" "$default_letters")
+    echo  # Add newline after input
+    
+    # Parse selection
+    declare -a selected_mcps
+    if [ -z "$selection" ]; then
+        # Use default
+        selection="$default_letters"
+    fi
+    
+    # Convert selection string to array of MCPs
+    for (( i=0; i<${#selection}; i++ )); do
+        local letter="${selection:$i:1}"
+        # Convert letter to index (a=0, b=1, etc.)
+        local letter_idx=$(($(printf '%d' "'$letter") - 97))
+        
+        if [ $letter_idx -ge 0 ] && [ $letter_idx -lt ${#mcp_keys_array[@]} ]; then
+            selected_mcps+=("${mcp_keys_array[$letter_idx]}")
         else
-            echo  # Add newline after input
+            print_warning "Invalid selection: ${letter}"
         fi
     done
+    
+    # Remove duplicates
+    selected_mcps=($(printf "%s\n" "${selected_mcps[@]}" | sort -u))
     
     # Build MCP servers JSON, tools array, and allowed tools
     if [ ${#selected_mcps[@]} -gt 0 ]; then
@@ -250,7 +286,10 @@ setup_mcp_servers() {
         local first=true
         local first_allowed=true
         
+        echo "Selected MCP servers:"
         for key in "${selected_mcps[@]}"; do
+            echo "  • ${key}"
+            
             if [ "$first" = false ]; then
                 MCP_JSON="${MCP_JSON},"
                 MCP_TOOLS="${MCP_TOOLS},"
@@ -273,7 +312,8 @@ setup_mcp_servers() {
             done
         done
         MCP_JSON="${MCP_JSON}}"
-        print_success "Selected ${#selected_mcps[@]} MCP server(s)"
+        echo
+        print_success "Configured ${#selected_mcps[@]} MCP server(s)"
     else
         MCP_JSON="{}"
         MCP_TOOLS=""
