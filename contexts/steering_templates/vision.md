@@ -66,7 +66,39 @@ without writing boilerplate code.
 **Information to elicit through interview**:
 - What should the project achieve?
 - What is the most important feature?
-- Conversely, what will you NOT do?
+
+---
+
+## Core Values
+Define what matters most for this project.
+
+**Example**:
+```
+- Simplicity over feature richness
+- Developer productivity over performance optimization
+- Convention over configuration
+- Immediate usability over flexibility
+```
+
+**Information to elicit through interview**:
+- What do you value most in this project?
+- When facing trade-offs, what do you prioritize?
+
+---
+
+## Out of Scope
+Clearly define what this project will NOT do.
+
+**Example**:
+```
+- GUI applications (CLI only)
+- Complex workflow orchestration (simple commands only)
+- Enterprise-scale features (focus on simplicity)
+```
+
+**Information to elicit through interview**:
+- What will you NOT do?
+- What is outside the project's scope?
 
 ---
 
